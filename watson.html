@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title> Coursera </title>
+
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/watson.css" />
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css" />
+
+    <script src="lib/jquery/dist/jquery.min.js"></script>
+    <script src="lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/lodash/lodash.min.js"></script>
+    <script src="https://kit.fontawesome.com/4d89d52e05.js" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+</head>
+
+<body>
+    <div class="jumbotron text-center">
+        <h1>Watson Product List</h1>
+        <p>Product List , Promotion List</p>
+    </div>
+
+    <div class="card card-body m-4">
+        <div class="d-block">
+            <div class="w-25 float-right">
+                <h6>Brands :</h6>
+                <div id="brandList"></div>
+            </div>
+
+            <div class="w-25 mb-2">
+                <span>Brand :</span>
+                <select id="brandInput">
+                </select>
+            </div>
+
+            <div class="w-25 mb-4">
+                <span>Products :</span>
+                <select id="productInput">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                </select>
+            </div>
+
+            <button id="load" class="btn btn-dark btn-sm">Refresh</button>
+        </div>
+    </div>
+
+    <div class="test-class">test css class</div>
+
+</body>
+
+<footer style="height: 100px; width: 100%">
+    <div class="jumbotron text-center text-white bg-dark">
+        <div>
+            <img class="d-inline" style="margin-top:-20px; margin-right: 10px; border-radius: 50%;" src="images/panda.jpg" height="48" width="48">
+            <h1 class="d-inline">Murnesty</h1>
+        </div>
+        <p class="mt-2">for study purpose</p>
+    </div>
+</footer>
+
+</html>
+
+
+<script type="text/javascript">
+    $("#load").click(() => alert("test"));
+
+    function _setupBrandList(data) {
+        var brandGroup = _.groupBy(data.brands, (x) => x.name.slice(0, 1));
+
+        // Update select box list
+        data.brands.forEach(x =>
+            $("#brandInput")
+            .append(
+                $("<option>")
+                .text(x.name)
+            )
+        );
+
+        // Update right brands list
+        for (var firstChar in brandGroup) {
+            // Prepare sublist
+            var subList =
+                $("<ul>")
+                .addClass("my-1");
+            brandGroup[firstChar].forEach(
+                x =>
+                subList
+                .append(
+                    $("<li>")
+                    .addClass("mb-1")
+                    .append(
+                        $("<button>")
+                        .addClass("btn btn-outline-secondary btn-sm m-0")
+                        .text(x.name)
+                        .click(function() {
+                            $("#brandInput").val(this.outerText);
+                        })
+                    )
+                )
+            )
+
+            // Setup main list
+            $("#brandList")
+                .append(
+                    $("<button>")
+                    .addClass("accordion")
+                    .text(firstChar)
+                    .click(function() {
+                        this.classList.toggle("active");
+
+                        /* Toggle between hiding and showing the active panel */
+                        var panel = this.nextElementSibling;
+                        if (panel.style.display === "block") {
+                            panel.style.display = "none";
+                        } else {
+                            panel.style.display = "block";
+                        }
+                    })
+                )
+                .append(
+                    $("<div>")
+                    .addClass("panel")
+                    .append(subList)
+                );
+        }
+    }
+
+    $.get("https://api.watsons.com.my/api/v2/wtcmy/brands?fields=FULL&lang=en&curr=MYR")
+        .done(function(data) {
+            alert("succss");
+            _setupBrandList(data);
+        })
+        .fail(function(ex) {
+            alert("fail");
+        })
+        .always(function() {});
+</script>

@@ -1,0 +1,54 @@
+.story #board .car {
+    position: absolute;
+    bottom: 15px;
+    background-color: orangered;
+    width: 50px;
+    height: 20px;
+}
+
+.story #board .car::before {
+    content: "";
+    position: absolute;
+    left: 20%;
+    bottom: 15px;
+    background-color: inherit;
+    width: 60%;
+    height: 15px;
+}
+
+.story #board .car .wheel {
+    position: absolute;
+    top: 60%;
+    background-color: black;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    animation: animate_wheel_rotate 1s linear infinite;
+}
+
+.story #board .car .wheel::before {
+    content: "";
+    position: absolute;
+    background-color: Gray;
+    width: 2px;
+    height: 15px;
+    -webkit-transform: translateY(0px) translateX(6px) rotate(45deg);
+}
+
+.story #board .car .wheel::after {
+    content: "";
+    position: absolute;
+    background-color: Gray;
+    width: 2px;
+    height: 15px;
+    -webkit-transform: translateY(0px) translateX(6px) rotate(-45deg);
+}
+
+@keyframes animate_wheel_rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
