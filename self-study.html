@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title> Coursera </title>
+
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css" />
+
+  <script src="lib/jquery/dist/jquery.min.js"></script>
+  <script src="lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="lib/lodash/lodash.min.js"></script>
+  <script src="https://kit.fontawesome.com/4d89d52e05.js" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+</head>
+
+<body>
+  <div class="jumbotron text-center">
+    <h1>COURSERA</h1>
+    <p>HTML, CSS, and Javascript for Web Developers</p>
+    <div class="font-weight-bold">Reference links :</div>
+    <div><a href="https://www.coursera.org/learn/html-css-javascript-for-web-developers/home/welcome"
+        target="_blank">course link</a></div>
+    <div><a href="https://developers.google.com/chart/interactive/docs/gallery/ganttchart" target="_blank">google chart
+        link</a></div>
+    <div><a href="https://docs.google.com/document/d/18NZXd3F7QTlz9b-0KHL0cNWwEt4pEx6lCzHJ7Pb5pIY/edit?usp=sharing"
+        target="_blank">google drive note</a></div>
+  </div>
+
+  <div class="card card-body m-4">
+    <h5>Progress :</h5>
+    <div id="chart_div" class=""></div>
+  </div>
+
+  <div class="test-class">test css class</div>
+
+  <script type="text/javascript">
+    google.charts.load('current', { 'packages': ['gantt'] });
+    google.charts.setOnLoadCallback(drawChart);
+
+    function days2ms(days) {
+      return days * 24 * 60 * 60 * 1000;
+    }
+
+    function drawChart() {
+      var data = new google.visualization.DataTable();
+      data.addColumn('string', 'Task ID');
+      data.addColumn('string', 'Task Name');
+      data.addColumn('date', 'Start Date');
+      data.addColumn('date', 'End Date');
+      data.addColumn('number', 'Duration');
+      data.addColumn('number', 'Percent Complete');
+      data.addColumn('string', 'Dependencies');
+
+      var todayDate = new Date();
+      var tmrDate = new Date(); tmrDate.setDate(tmrDate.getDate() + 1);
+      var startDate = new Date(2021, 3, 10);
+      var endDate = new Date(startDate); endDate.setDate(endDate.getDate() + 7);
+      var rows = [];
+      for (var i = 1; i <= 7; i++) {
+        if (i === 1) {
+          rows.push([`Week${i}`, `Week ${i}`, startDate, endDate, days2ms(7), 0, null]);
+        } else {
+          rows.push([`Week${i}`, `Week ${i}`, startDate, endDate, days2ms(7), 0, `Week${i - 1}`]);
+        }
+        startDate = new Date(endDate);
+        endDate = new Date(endDate);
+        endDate.setDate(endDate.getDate() + 7);
+      }
+      rows.push(["Today", "Today", todayDate, tmrDate, days2ms(1), 100, null]);
+      rows[0][5] = 100;
+      rows[1][5] = 50;
+
+      data.addRows(rows);
+
+      var options = {
+        height: 400
+      };
+
+      var chart = new google.visualization.Gantt(document.getElementById('chart_div'));
+
+      chart.draw(data, options);
+    }
+  </script>
+</body>
+
+<footer style="height: 100px; width: 100%">
+  <div class="jumbotron text-center text-white bg-dark">
+    <div>
+      <img class="d-inline" style="margin-top:-20px; margin-right: 10px; border-radius: 50%;" src="images/panda.jpg"
+        height="48" width="48">
+      <h1 class="d-inline">Murnesty</h1>
+    </div>
+    <p class="mt-2">for study purpose</p>
+  </div>
+</footer>
+
+</html>

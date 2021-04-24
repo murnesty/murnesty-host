@@ -1,0 +1,36 @@
+.accordion {
+    background-color: #eee;
+    color: #444;
+    cursor: pointer;
+    padding: 5px;
+    width: 100%;
+    text-align: left;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    border-bottom: 1px solid darkgray;
+    outline: none;
+    transition: 0.4s;
+    box-sizing: border-box;
+}
+
+.accordion.active,
+.accordion:hover {
+    outline: none;
+    background-color: #ccc;
+}
+
+.panel {
+    padding: 0 18px;
+    display: none;
+    overflow: hidden;
+}
+
+.panel ul {
+    list-style-type: none;
+}
+
+#brandList {
+    height: 200px;
+    overflow-y: auto;
+}
