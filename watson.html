@@ -23,7 +23,7 @@
 
     <div class="card card-body m-4">
         <div class="d-block">
-            <div class="w-25 float-right">
+            <div class="w-50 float-right">
                 <h6>Brands :</h6>
                 <div id="brandList"></div>
             </div>
@@ -67,8 +67,6 @@
 
 
 <script type="text/javascript">
-    $("#load").click(() => alert("test"));
-
     function _setupBrandList(data) {
         var brandGroup = _.groupBy(data.brands, (x) => x.name.slice(0, 1));
 
@@ -95,6 +93,7 @@
                     .addClass("mb-1")
                     .append(
                         $("<button>")
+                        .attr("data-brand-code", x.brandUrl.substring(x.brandUrl.lastIndexOf("/") + 1))
                         .addClass("btn btn-outline-secondary btn-sm m-0")
                         .text(x.name)
                         .click(function() {
@@ -121,6 +120,11 @@
                             panel.style.display = "block";
                         }
                     })
+                    .append(
+                        $("<div>")
+                        .addClass("my-auto badge rounded-pill bg-primary text-white float-right")
+                        .text(brandGroup[firstChar].length.toString())
+                    )
                 )
                 .append(
                     $("<div>")
@@ -130,14 +134,24 @@
         }
     }
 
-    $.get({
-            url: "https://api.watsons.com.my/api/v2/wtcmy/brands?fields=FULL&lang=en&curr=MYR"
-        })
-        .done(function(data) {
-            _setupBrandList(data);
-        })
-        .fail(function(ex) {
-            alert("fail");
-        })
-        .always(function() {});
+    $(document).ready(function() {
+        $.ajax({
+                headers: {
+                    "Accept": "application/json"
+                },
+                type: 'GET',
+                url: "https://api.watsons.com.my/api/v2/wtcmy/brands?fields=FULL&lang=en&curr=MYR",
+                crossDomain: true,
+                beforeSend: function(xhr) {
+                    xhr.withCredentials = true;
+                }
+            })
+            .done(function(data) {
+                _setupBrandList(data);
+            })
+            .fail(function(ex) {
+                alert("fail");
+            })
+            .always(function() {});
+    });
 </script>
