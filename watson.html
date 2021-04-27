@@ -130,9 +130,10 @@
         }
     }
 
-    $.ajax("https://api.watsons.com.my/api/v2/wtcmy/brands?fields=FULL&lang=en&curr=MYR")
+    $.get({
+            url: "https://api.watsons.com.my/api/v2/wtcmy/brands?fields=FULL&lang=en&curr=MYR"
+        })
         .done(function(data) {
-            alert("succss");
             _setupBrandList(data);
         })
         .fail(function(ex) {
