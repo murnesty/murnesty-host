@@ -23,19 +23,19 @@
 
     <div class="card card-body m-4" style="height: 200px; overflow: auto;">
         <div class="d-block">
-            <div class="w-50 float-right">
+            <div class="w-50 float-right" style="z-index: 999">
                 <h6>Brands :</h6>
                 <div id="brandList"></div>
             </div>
 
-            <div class="sticky-top">
-                <div class="w-25 mb-2">
+            <div class="w-25 sticky-top">
+                <div class="mb-2">
                     <span>Brand :</span>
                     <select id="brandInput">
                 </select>
                 </div>
 
-                <div class="w-25 mb-4">
+                <div class="mb-4">
                     <span>Products :</span>
                     <select id="productInput">
                     <option>1</option>
@@ -52,7 +52,7 @@
     </div>
 
     <div class="card card-body m-4">
-
+        <table id="productTable"></table>
     </div>
 </body>
 
@@ -123,25 +123,72 @@
                 .addClass("my-1")
                 .append(
                     brandGroup[firstChar]
-                    .map(x =>
-                        $("<li>")
-                        .addClass("mb-1")
-                        .append(
-                            $("<button>")
-                            .attr("data-brand-code", x.brandUrl.substring(x.brandUrl.lastIndexOf("/") + 1))
-                            .addClass("btn btn-outline-secondary btn-sm m-0")
-                            .text(x.name)
-                            .click(function() {
-                                $("#brandInput").val(this.outerText);
-                            })
-                        )
-                    )
+                    .map((x) => {
+                        var items = x.brandUrl.split("/");
+
+                        return $("<li>")
+                            .addClass("mb-1")
+                            .append(
+                                $("<button>")
+                                .attr("data-brand-code", items[items.length - 2]) // x.brandUrl.slice(0, x.brandUrl.lastIndexOf("/") + 1)
+                                .addClass("btn btn-outline-secondary btn-sm m-0")
+                                .text(x.name)
+                                .click(function(e) {
+                                    $("#brandInput")
+                                        .attr("data-brand-code", this.dataset.brandCode)
+                                        .val(this.outerText);
+                                })
+                            );
+                    })
                 )
         }
 
     }
 
+    function _setupRefreshClick(element) {
+        element.click(function(e) {
+            var productUrl = `https://cors.bridged.cc/https://api.watsons.com.my/api/v2/wtcmy/products/search?fields=FULL&query=%3AproductBrandCode%3AproductBrandCode%3A${$("#brandInput").attr("data-brand-code")}&pageSize=32&sort=bestSeller&lang=en&curr=MYR`;
+            $.ajax({
+                    headers: {
+                        "Accept": "application/json"
+                    },
+                    type: 'GET',
+                    url: productUrl,
+                    crossDomain: true,
+                    beforeSend: function(xhr) {
+                        xhr.withCredentials = true;
+                    }
+                })
+                .done(function(data) {
+                    console.log(data.products);
+
+                    $("#productTable")
+                        .empty()
+                        .append(
+                            _.chain(data.products)
+                            .orderBy("name")
+                            .map((p) => {
+                                return $("<tr>")
+                                    // .append($("<th>").text((p.masterBrand || {}).code))
+                                    // .append($("<th>").text((p.code || "")))
+                                    .append($("<th>").text((p.masterBrand || {}).name))
+                                    .append($("<th>").text((p.name || "")))
+                                    .append($("<th>").text((p.elabMarkDownPrice || {}).value))
+                                    .append($("<th>").text((p.price || {}).value));
+                            })
+                            .value()
+                        );
+                })
+                .fail(function(ex) {
+                    alert("fail");
+                })
+                .always(function() {});
+        });
+    }
+
     $(document).ready(function() {
+        _setupRefreshClick($("#load"));
+
         $.ajax({
                 headers: {
                     "Accept": "application/json"
