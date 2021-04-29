@@ -29,8 +29,3 @@
 .panel ul {
     list-style-type: none;
 }
-
-#brandList {
-    height: 200px;
-    overflow-y: auto;
-}

@@ -21,36 +21,39 @@
         <p>Product List , Promotion List</p>
     </div>
 
-    <div class="card card-body m-4">
+    <div class="card card-body m-4" style="height: 200px; overflow: auto;">
         <div class="d-block">
             <div class="w-50 float-right">
                 <h6>Brands :</h6>
                 <div id="brandList"></div>
             </div>
 
-            <div class="w-25 mb-2">
-                <span>Brand :</span>
-                <select id="brandInput">
+            <div class="sticky-top">
+                <div class="w-25 mb-2">
+                    <span>Brand :</span>
+                    <select id="brandInput">
                 </select>
-            </div>
+                </div>
 
-            <div class="w-25 mb-4">
-                <span>Products :</span>
-                <select id="productInput">
+                <div class="w-25 mb-4">
+                    <span>Products :</span>
+                    <select id="productInput">
                     <option>1</option>
                     <option>2</option>
                     <option>3</option>
                     <option>4</option>
                     <option>5</option>
                 </select>
-            </div>
+                </div>
 
-            <button id="load" class="btn btn-dark btn-sm">Refresh</button>
+                <button id="load" class="btn btn-dark btn-sm">Refresh</button>
+            </div>
         </div>
     </div>
 
-    <div class="test-class">test css class</div>
+    <div class="card card-body m-4">
 
+    </div>
 </body>
 
 <footer style="height: 100px; width: 100%">
@@ -67,71 +70,75 @@
 
 
 <script type="text/javascript">
-    function _setupBrandList(data) {
-        var brandGroup = _.groupBy(data.brands, (x) => x.name.slice(0, 1));
-
-        // Update select box list
-        data.brands.forEach(x =>
-            $("#brandInput")
+    function _setupBrandSelectBox(element, brands) {
+        brands.forEach(x =>
+            element
             .append(
                 $("<option>")
                 .text(x.name)
             )
         );
+    }
 
-        // Update right brands list
+    function _setupBrandList(element, data) {
+        var brandGroup = _.groupBy(data.brands, (x) => x.name.slice(0, 1));
         for (var firstChar in brandGroup) {
-            // Prepare sublist
-            var subList =
-                $("<ul>")
-                .addClass("my-1");
-            brandGroup[firstChar].forEach(
-                x =>
-                subList
+            element
                 .append(
-                    $("<li>")
-                    .addClass("mb-1")
-                    .append(
-                        $("<button>")
-                        .attr("data-brand-code", x.brandUrl.substring(x.brandUrl.lastIndexOf("/") + 1))
-                        .addClass("btn btn-outline-secondary btn-sm m-0")
-                        .text(x.name)
-                        .click(function() {
-                            $("#brandInput").val(this.outerText);
-                        })
-                    )
-                )
-            )
-
-            // Setup main list
-            $("#brandList")
-                .append(
-                    $("<button>")
-                    .addClass("accordion")
-                    .text(firstChar)
-                    .click(function() {
-                        this.classList.toggle("active");
-
-                        /* Toggle between hiding and showing the active panel */
-                        var panel = this.nextElementSibling;
-                        if (panel.style.display === "block") {
-                            panel.style.display = "none";
-                        } else {
-                            panel.style.display = "block";
-                        }
-                    })
-                    .append(
-                        $("<div>")
-                        .addClass("my-auto badge rounded-pill bg-primary text-white float-right")
-                        .text(brandGroup[firstChar].length.toString())
-                    )
+                    _setupMainItemButton(brandGroup, firstChar)
                 )
                 .append(
                     $("<div>")
                     .addClass("panel")
-                    .append(subList)
+                    .append(
+                        _setupSubList(brandGroup, firstChar)
+                    )
                 );
         }
+
+        function _setupMainItemButton(brandGroup, firstChar) {
+            return $("<button>")
+                .addClass("accordion")
+                .text(firstChar)
+                .click(function() {
+                    this.classList.toggle("active");
+
+                    /* Toggle between hiding and showing the active panel */
+                    var panel = this.nextElementSibling;
+                    if (panel.style.display === "block") {
+                        panel.style.display = "none";
+                    } else {
+                        panel.style.display = "block";
+                    }
+                })
+                .append(
+                    $("<div>")
+                    .addClass("my-auto badge rounded-pill bg-primary text-white float-right")
+                    .text(brandGroup[firstChar].length.toString())
+                );
+        }
+
+        function _setupSubList(brandGroup, firstChar) {
+            return $("<ul>")
+                .addClass("my-1")
+                .append(
+                    brandGroup[firstChar]
+                    .map(x =>
+                        $("<li>")
+                        .addClass("mb-1")
+                        .append(
+                            $("<button>")
+                            .attr("data-brand-code", x.brandUrl.substring(x.brandUrl.lastIndexOf("/") + 1))
+                            .addClass("btn btn-outline-secondary btn-sm m-0")
+                            .text(x.name)
+                            .click(function() {
+                                $("#brandInput").val(this.outerText);
+                            })
+                        )
+                    )
+                )
+        }
+
     }
 
     $(document).ready(function() {
@@ -147,7 +154,8 @@
                 }
             })
             .done(function(data) {
-                _setupBrandList(data);
+                _setupBrandSelectBox($("#brandInput"), data.brands);
+                _setupBrandList($("#brandList"), data);
             })
             .fail(function(ex) {
                 alert("fail");
