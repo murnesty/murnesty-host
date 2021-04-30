@@ -46,6 +46,7 @@ Murnesty.Watson = function() {
                             n.price = p.price;
                             n.elabMarkDownPrice = p.elabMarkDownPrice;
                             n.masterBrand = p.masterBrand;
+                            n.prodUrl = `https://www.watsons.com.my${p.url}`;
                             n.imgUrl = p.images[0] === undefined ? null : `https://api.watsons.com.my${p.images[0].url}`;
                             n.discountPercentage =
                                 (p.elabMarkDownPrice || {
@@ -197,7 +198,7 @@ Murnesty.Watson = function() {
                             .append($("<th>").text("Brand"))
                             .append($("<th>").text("Product ↓❹"))
                             .append($("<th>").text("Original Price (RM) ↓❸"))
-                            .append($("<th>").text("Discount Price (RM)"))
+                            .append($("<th>").text("Current Price (RM)"))
                             .append($("<th>").text("Discount Percent (%) ↑❶"))
                             .append($("<th>").text("Discount (RM) ↑❷"))
                         )
@@ -211,11 +212,15 @@ Murnesty.Watson = function() {
                                     .append(
                                         $("<td>")
                                         .text((p.name || ""))
+                                        .css({
+                                            cursor: "pointer"
+                                        })
                                         .tooltip({
                                             html: true,
                                             placement: "bottom",
                                             title: `<img src="${p.imgUrl}" alt="${p.name}" width="128" height="128">`
                                         })
+                                        .click(() => window.open(p.prodUrl))
                                     )
                                     .append($("<td>").text((p.price || {}).value))
                                     .append($("<td>").text((p.elabMarkDownPrice || {}).value))
@@ -265,7 +270,7 @@ Murnesty.Watson = function() {
                                             .append($("<th>").text("Brand"))
                                             .append($("<th>").text("Product ↓❹"))
                                             .append($("<th>").text("Original Price (RM) ↓❸"))
-                                            .append($("<th>").text("Discount Price (RM)"))
+                                            .append($("<th>").text("Current Price (RM)"))
                                             .append($("<th>").text("Discount Percent (%) ↑❶"))
                                             .append($("<th>").text("Discount (RM) ↑❷"))
                                         )
@@ -278,11 +283,15 @@ Murnesty.Watson = function() {
                                                     .append(
                                                         $("<td>")
                                                         .text((p.name || ""))
+                                                        .css({
+                                                            cursor: "pointer"
+                                                        })
                                                         .tooltip({
                                                             html: true,
                                                             placement: "bottom",
                                                             title: `<img src="${p.imgUrl}" alt="${p.name}" width="128" height="128">`
                                                         })
+                                                        .click(() => window.open(p.prodUrl))
                                                     )
                                                     .append($("<td>").text((p.price || {}).value))
                                                     .append($("<td>").text((p.elabMarkDownPrice || {}).value))
