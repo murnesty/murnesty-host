@@ -46,6 +46,7 @@ Murnesty.Watson = function() {
                             n.price = p.price;
                             n.elabMarkDownPrice = p.elabMarkDownPrice;
                             n.masterBrand = p.masterBrand;
+                            n.imgUrl = p.images[0] === undefined ? null : `https://api.watsons.com.my${p.images[0].url}`;
                             n.discountPercentage =
                                 (p.elabMarkDownPrice || {
                                     value: 0
@@ -163,7 +164,7 @@ Murnesty.Watson = function() {
                                 .addClass("mb-1")
                                 .append(
                                     $("<button>")
-                                    .attr("data-brand-code", items[items.length - 2]) // x.brandUrl.slice(0, x.brandUrl.lastIndexOf("/") + 1)
+                                    .attr("data-brand-code", items[items.length - 2])
                                     .addClass("btn btn-outline-secondary btn-sm m-0")
                                     .text(x.name)
                                     .click(function(e) {
@@ -203,8 +204,19 @@ Murnesty.Watson = function() {
                         .append(
                             data.map((p) => {
                                 return $("<tr>")
+                                    .attr({
+                                        "data-img-url": p.imgUrl
+                                    })
                                     .append($("<td>").text((p.masterBrand || {}).name))
-                                    .append($("<td>").text((p.name || "")))
+                                    .append(
+                                        $("<td>")
+                                        .text((p.name || ""))
+                                        .tooltip({
+                                            html: true,
+                                            placement: "bottom",
+                                            title: `<img src="${p.imgUrl}" alt="${p.name}" width="128" height="128">`
+                                        })
+                                    )
                                     .append($("<td>").text((p.price || {}).value))
                                     .append($("<td>").text((p.elabMarkDownPrice || {}).value))
                                     .append($("<td>").text((p.discountPercentage || "")))
@@ -263,7 +275,15 @@ Murnesty.Watson = function() {
                                             .map((p) => {
                                                 return $("<tr>")
                                                     .append($("<td>").text((p.masterBrand || {}).name))
-                                                    .append($("<td>").text((p.name || "")))
+                                                    .append(
+                                                        $("<td>")
+                                                        .text((p.name || ""))
+                                                        .tooltip({
+                                                            html: true,
+                                                            placement: "bottom",
+                                                            title: `<img src="${p.imgUrl}" alt="${p.name}" width="128" height="128">`
+                                                        })
+                                                    )
                                                     .append($("<td>").text((p.price || {}).value))
                                                     .append($("<td>").text((p.elabMarkDownPrice || {}).value))
                                                     .append($("<td>").text((p.discountPercentage || "")))
