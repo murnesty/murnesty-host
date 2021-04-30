@@ -1,251 +1,103 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
     <title> Coursera </title>
 
     <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="css/watson.css" />
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" /> -->
     <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css" />
 
+    <script src="https://kit.fontawesome.com/4d89d52e05.js" crossorigin="anonymous"></script>
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
     <script src="lib/jquery/dist/jquery.min.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script> -->
     <script src="lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="lib/lodash/lodash.min.js"></script>
-    <script src="https://kit.fontawesome.com/4d89d52e05.js" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="js/site.js"></script>
+    <script src="js/watson.js"></script>
 </head>
 
 <body>
+    <div id="loaderSpinner" class="position-absolute spinner-border text-primary d-none" style="top: 50%; left: 50%"></div>
+
     <div class="jumbotron text-center">
         <h1>Watson Product List</h1>
         <p>Product List , Promotion List</p>
     </div>
 
-    <div class="card card-body m-4" style="height: 200px; overflow: auto;">
-        <div class="d-block">
-            <div class="w-50 float-right" style="z-index: 999">
-                <h6>Brands :</h6>
-                <div id="brandList"></div>
+    <div class="m-4" style="min-height: 400px">
+
+        <ul class="nav nav-tabs">
+            <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#allDiscounts">Discount List</a></li>
+            <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#singleProduct">Product</a></li>
+            <!-- <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#menu2">Menu 2</a></li>
+            <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#menu3">Menu 3</a></li> -->
+        </ul>
+
+        <div class="tab-content border-left border-right border-bottom p-3">
+            <div id="singleProduct" class="tab-pane fade">
+                <div>
+                    <div class="card card-body m-4" style="height: 200px; overflow: auto;">
+                        <div class="d-block">
+                            <div class="w-50 float-right" style="z-index: 999">
+                                <h6>Brands :</h6>
+                                <div id="brandList"></div>
+                            </div>
+
+                            <div class="w-25 sticky-top">
+                                <div class="mb-4">
+                                    <span>Brand :</span>
+                                    <select id="brandInput"></select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card card-body m-4">
+                        <table id="productTable" class="product-table"></table>
+                    </div>
+                </div>
             </div>
 
-            <div class="w-25 sticky-top">
-                <div class="mb-4">
-                    <span>Brand :</span>
-                    <select id="brandInput"></select>
-                </div>
+            <div id="allDiscounts" class="tab-pane active">
+                <h3 class="d-inline">Discount list</h3>
+                <span class="ml-3 border rounded small p-1" style="box-sizing: border-box;">
+                    <span id="loadProgressWord"></span><span id="loadProgressValue">0</span>/<span id="loadProgressTotal">0</span> Brands
+                <spin id="loadProgressRemarks"></spin>
+                </span>
+                <table id="allProductTable" class="product-table mt-3"></table>
+            </div>
 
-                <button id="load" class="btn btn-dark btn-sm">Refresh</button>
+            <div id="menu2" class="tab-pane fade">
+                <h3>Menu 2</h3>
+                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+            </div>
+
+            <div id="menu3" class="tab-pane fade">
+                <h3>Menu 3</h3>
+                <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
             </div>
         </div>
     </div>
 
-    <div class="card card-body m-4">
-        <table id="productTable"></table>
-    </div>
+    <footer style="height: 100px; width: 100%">
+        <div class="jumbotron text-center text-white bg-dark">
+            <div>
+                <img class="d-inline" style="margin-top:-20px; margin-right: 10px; border-radius: 50%;" src="images/panda.jpg" alt="images/panda.jpg" height="48" width="48">
+                <h1 class="d-inline">Murnesty</h1>
+            </div>
+            <p class="mt-2">for study purpose</p>
+        </div>
+    </footer>
+
+
+    <script>
+        $(document).ready(function() {
+            new Murnesty.Watson().init();
+        });
+    </script>
 </body>
 
-<footer style="height: 100px; width: 100%">
-    <div class="jumbotron text-center text-white bg-dark">
-        <div>
-            <img class="d-inline" style="margin-top:-20px; margin-right: 10px; border-radius: 50%;" src="images/panda.jpg" height="48" width="48">
-            <h1 class="d-inline">Murnesty</h1>
-        </div>
-        <p class="mt-2">for study purpose</p>
-    </div>
-</footer>
-
 </html>
-
-
-<script type="text/javascript">
-    function _setupBrandSelectBox(element, brands) {
-        brands.forEach(x =>
-            element
-            .append(
-                $("<option>")
-                .text(x.name)
-            )
-        );
-        element
-            .change(function() {
-                var entry = brands.find(x => x.name === element.val());
-                var codeItems = entry.brandUrl.split("/");
-                element.attr("data-brand-code", codeItems[codeItems.length - 2])
-            });
-    }
-
-    function _setupBrandList(element, data) {
-        var brandGroup = _.groupBy(data.brands, (x) => x.name.slice(0, 1));
-        for (var firstChar in brandGroup) {
-            element
-                .append(
-                    _setupMainItemButton(brandGroup, firstChar)
-                )
-                .append(
-                    $("<div>")
-                    .addClass("panel")
-                    .append(
-                        _setupSubList(brandGroup, firstChar)
-                    )
-                );
-        }
-
-        function _setupMainItemButton(brandGroup, firstChar) {
-            return $("<button>")
-                .addClass("accordion")
-                .text(firstChar)
-                .click(function() {
-                    this.classList.toggle("active");
-
-                    /* Toggle between hiding and showing the active panel */
-                    var panel = this.nextElementSibling;
-                    if (panel.style.display === "block") {
-                        panel.style.display = "none";
-                    } else {
-                        panel.style.display = "block";
-                    }
-                })
-                .append(
-                    $("<div>")
-                    .addClass("my-auto badge rounded-pill bg-primary text-white float-right")
-                    .text(brandGroup[firstChar].length.toString())
-                );
-        }
-
-        function _setupSubList(brandGroup, firstChar) {
-            return $("<ul>")
-                .addClass("my-1")
-                .append(
-                    brandGroup[firstChar]
-                    .map((x) => {
-                        var items = x.brandUrl.split("/");
-
-                        return $("<li>")
-                            .addClass("mb-1")
-                            .append(
-                                $("<button>")
-                                .attr("data-brand-code", items[items.length - 2]) // x.brandUrl.slice(0, x.brandUrl.lastIndexOf("/") + 1)
-                                .addClass("btn btn-outline-secondary btn-sm m-0")
-                                .text(x.name)
-                                .click(function(e) {
-                                    $("#brandInput")
-                                        .attr("data-brand-code", this.dataset.brandCode)
-                                        .val(this.outerText);
-                                })
-                            );
-                    })
-                )
-        }
-
-    }
-
-    function _setupRefreshClick(element) {
-        element.click(function(e) {
-            var productUrl = `https://cors.bridged.cc/https://api.watsons.com.my/api/v2/wtcmy/products/search?fields=FULL&query=%3AproductBrandCode%3AproductBrandCode%3A${$("#brandInput").attr("data-brand-code")}&pageSize=32&sort=bestSeller&lang=en&curr=MYR`;
-            $.ajax({
-                    headers: {
-                        "Accept": "application/json"
-                    },
-                    type: 'GET',
-                    url: productUrl,
-                    crossDomain: true,
-                    beforeSend: function(xhr) {
-                        xhr.withCredentials = true;
-                    }
-                })
-                .done(function(data) {
-                    console.log(data.products);
-
-                    $("#productTable")
-                        .empty()
-                        .append(
-                            $("<tr>")
-                            .append($("<th>").text("Brand"))
-                            .append($("<th>").text("Product ↑❹"))
-                            .append($("<th>").text("Original Price (RM) ↑❸"))
-                            .append($("<th>").text("Discount Price (RM)"))
-                            .append($("<th>").text("Discount Percent (%) ↓❶"))
-                            .append($("<th>").text("Discount (RM) ↓❷"))
-                        )
-                        .append(
-                            _.chain(data.products)
-                            .map((p) => {
-                                p.discountPercentage =
-                                    (p.elabMarkDownPrice || {
-                                        value: 0
-                                    }).value === 0 ?
-                                    0 :
-                                    parseFloat((
-                                        (
-                                            (p.price || {
-                                                value: 0
-                                            }).value -
-                                            (p.elabMarkDownPrice || {
-                                                value: 0
-                                            }).value
-                                        ) * 100 /
-                                        (p.price || {
-                                            value: 0
-                                        }).value
-                                    ).toFixed(0));
-                                p.discount =
-                                    (p.elabMarkDownPrice || {
-                                        value: 0
-                                    }).value === 0 ?
-                                    0 :
-                                    parseFloat((
-                                        (p.price || {
-                                            value: 0
-                                        }).value -
-                                        (p.elabMarkDownPrice || {
-                                            value: 0
-                                        }).value
-                                    ).toFixed(2));
-                                return p;
-                            })
-                            .orderBy(["discountPercentage", "discount", "price.value", "name"], ["desc", "desc", "asc", "asc"])
-                            .map((p) => {
-                                return $("<tr>")
-                                    // .append($("<th>").text((p.masterBrand || {}).code))
-                                    // .append($("<th>").text((p.code || "")))
-                                    .append($("<td>").text((p.masterBrand || {}).name))
-                                    .append($("<td>").text((p.name || "")))
-                                    .append($("<td>").text((p.price || {}).value))
-                                    .append($("<td>").text((p.elabMarkDownPrice || {}).value))
-                                    .append($("<td>").text((p.discountPercentage || "")))
-                                    .append($("<td>").text((p.discount || "")));
-                            })
-                            .value()
-                        );
-                })
-                .fail(function(ex) {
-                    alert("fail");
-                })
-                .always(function() {});
-        });
-    }
-
-    $(document).ready(function() {
-        _setupRefreshClick($("#load"));
-
-        $.ajax({
-                headers: {
-                    "Accept": "application/json"
-                },
-                type: 'GET',
-                url: "https://cors.bridged.cc/https://api.watsons.com.my/api/v2/wtcmy/brands?fields=FULL&lang=en&curr=MYR",
-                crossDomain: true,
-                beforeSend: function(xhr) {
-                    xhr.withCredentials = true;
-                }
-            })
-            .done(function(data) {
-                _setupBrandSelectBox($("#brandInput"), data.brands);
-                _setupBrandList($("#brandList"), data);
-            })
-            .fail(function(ex) {
-                alert("fail");
-            })
-            .always(function() {});
-    });
-</script>

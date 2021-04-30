@@ -30,28 +30,28 @@
     list-style-type: none;
 }
 
-#productTable,
+.product-table,
 th,
 td {
     border: 1px solid black;
     border-collapse: collapse;
 }
 
-#productTable th,
+.product-table th,
 td {
     padding: 15px;
     text-align: left;
 }
 
-#productTable tr:nth-child(even) {
+.product-table tr:nth-child(even) {
     background-color: #eee;
 }
 
-#productTable tr:nth-child(odd) {
+.product-table tr:nth-child(odd) {
     background-color: #fff;
 }
 
-#productTable th {
+.product-table th {
     background-color: orangered;
     color: white;
 }
