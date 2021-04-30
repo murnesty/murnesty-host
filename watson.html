@@ -29,21 +29,9 @@
             </div>
 
             <div class="w-25 sticky-top">
-                <div class="mb-2">
-                    <span>Brand :</span>
-                    <select id="brandInput">
-                </select>
-                </div>
-
                 <div class="mb-4">
-                    <span>Products :</span>
-                    <select id="productInput">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
-                </select>
+                    <span>Brand :</span>
+                    <select id="brandInput"></select>
                 </div>
 
                 <button id="load" class="btn btn-dark btn-sm">Refresh</button>
@@ -78,6 +66,12 @@
                 .text(x.name)
             )
         );
+        element
+            .change(function() {
+                var entry = brands.find(x => x.name === element.val());
+                var codeItems = entry.brandUrl.split("/");
+                element.attr("data-brand-code", codeItems[codeItems.length - 2])
+            });
     }
 
     function _setupBrandList(element, data) {
@@ -165,16 +159,61 @@
                     $("#productTable")
                         .empty()
                         .append(
+                            $("<tr>")
+                            .append($("<th>").text("Brand"))
+                            .append($("<th>").text("Product ↑❹"))
+                            .append($("<th>").text("Original Price (RM) ↑❸"))
+                            .append($("<th>").text("Discount Price (RM)"))
+                            .append($("<th>").text("Discount Percent (%) ↓❶"))
+                            .append($("<th>").text("Discount (RM) ↓❷"))
+                        )
+                        .append(
                             _.chain(data.products)
-                            .orderBy("name")
+                            .map((p) => {
+                                p.discountPercentage =
+                                    (p.elabMarkDownPrice || {
+                                        value: 0
+                                    }).value === 0 ?
+                                    " " :
+                                    (
+                                        (
+                                            (p.price || {
+                                                value: 0
+                                            }).value -
+                                            (p.elabMarkDownPrice || {
+                                                value: 0
+                                            }).value
+                                        ) * 100 /
+                                        (p.price || {
+                                            value: 0
+                                        }).value
+                                    ).toFixed(0);
+                                p.discount =
+                                    (p.elabMarkDownPrice || {
+                                        value: 0
+                                    }).value === 0 ?
+                                    " " :
+                                    (
+                                        (p.price || {
+                                            value: 0
+                                        }).value -
+                                        (p.elabMarkDownPrice || {
+                                            value: 0
+                                        }).value
+                                    ).toFixed(0);
+                                return p;
+                            })
+                            .orderBy(["discountPercentage", "discount", "price.value", "name"], ["desc", "desc", "asc", "asc"])
                             .map((p) => {
                                 return $("<tr>")
                                     // .append($("<th>").text((p.masterBrand || {}).code))
                                     // .append($("<th>").text((p.code || "")))
-                                    .append($("<th>").text((p.masterBrand || {}).name))
-                                    .append($("<th>").text((p.name || "")))
-                                    .append($("<th>").text((p.elabMarkDownPrice || {}).value))
-                                    .append($("<th>").text((p.price || {}).value));
+                                    .append($("<td>").text((p.masterBrand || {}).name))
+                                    .append($("<td>").text((p.name || "")))
+                                    .append($("<td>").text((p.price || {}).value))
+                                    .append($("<td>").text((p.elabMarkDownPrice || {}).value))
+                                    .append($("<td>").text((p.discountPercentage || "")))
+                                    .append($("<td>").text((p.discount || "")));
                             })
                             .value()
                         );
