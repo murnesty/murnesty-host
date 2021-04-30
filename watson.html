@@ -174,8 +174,8 @@
                                     (p.elabMarkDownPrice || {
                                         value: 0
                                     }).value === 0 ?
-                                    " " :
-                                    (
+                                    0 :
+                                    parseFloat((
                                         (
                                             (p.price || {
                                                 value: 0
@@ -187,20 +187,20 @@
                                         (p.price || {
                                             value: 0
                                         }).value
-                                    ).toFixed(0);
+                                    ).toFixed(0));
                                 p.discount =
                                     (p.elabMarkDownPrice || {
                                         value: 0
                                     }).value === 0 ?
-                                    " " :
-                                    (
+                                    0 :
+                                    parseFloat((
                                         (p.price || {
                                             value: 0
                                         }).value -
                                         (p.elabMarkDownPrice || {
                                             value: 0
                                         }).value
-                                    ).toFixed(0);
+                                    ).toFixed(2));
                                 return p;
                             })
                             .orderBy(["discountPercentage", "discount", "price.value", "name"], ["desc", "desc", "asc", "asc"])
