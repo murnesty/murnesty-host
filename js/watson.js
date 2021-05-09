@@ -188,6 +188,83 @@ Murnesty.Watson = function() {
     }
 
     function _controllerWrapper() {
+        function onload() {
+            $("#loaderSpinner").removeClass("d-none");
+            $.when(_dataWrapper().getBrands())
+                .then(
+                    function(data) {
+                        var products = [];
+
+                        _uiWrapper().setupBrandSelectBox($("#brandInput"), data.brands);
+                        _uiWrapper().setupBrandList($("#brandList"), data);
+
+                        $("#loadProgressTotal").text(data.brands.length);
+                        $("#loadProgressWord").text("Loading : ");
+                        data.brands.forEach((x, i) => {
+                            var items = x.brandUrl.split("/");
+                            $.when(_dataWrapper().getProduct(items[items.length - 2])).then(
+                                function(serverData) {
+                                    var curr = $("#loadProgressValue").text();
+                                    var next = parseInt(curr) + 1;
+
+                                    products = products.concat(serverData.filter(x => x.discount > 0));
+                                    if (next >= data.brands.length) {
+                                        $("#loaderSpinner").addClass("d-none");
+
+                                        $("#loadProgressWord").text("Loaded : ");
+                                        $("#loadProgressValue").text(data.brands.length);
+                                        $("#loadProgressRemarks").text(` (${products.length} Products)`);
+                                        $("#allProductTable")
+                                            .empty()
+                                            .append(
+                                                $("<tr>")
+                                                .append($("<th>").text("Brand"))
+                                                .append($("<th>").text("Product ↓❹"))
+                                                .append($("<th>").text("Original Price (RM) ↓❸"))
+                                                .append($("<th>").text("Current Price (RM)"))
+                                                .append($("<th>").text("Discount Percent (%) ↑❶"))
+                                                .append($("<th>").text("Discount (RM) ↑❷"))
+                                            )
+                                            .append(
+                                                _.chain(products)
+                                                .orderBy(["discountPercentage", "discount", "price.value", "name"], ["desc", "desc", "asc", "asc"])
+                                                .map((p) => {
+                                                    return $("<tr>")
+                                                        .append($("<td>").text((p.masterBrand || {}).name))
+                                                        .append(
+                                                            $("<td>")
+                                                            .text((p.name || ""))
+                                                            .css({
+                                                                cursor: "pointer"
+                                                            })
+                                                            .tooltip({
+                                                                html: true,
+                                                                placement: "bottom",
+                                                                title: `<img src="${p.imgUrl}" alt="${p.name}" width="128" height="128">`
+                                                            })
+                                                            .click(() => window.open(p.prodUrl))
+                                                        )
+                                                        .append($("<td>").text((p.price || {}).value))
+                                                        .append($("<td>").text((p.elabMarkDownPrice || {}).value))
+                                                        .append($("<td>").text((p.discountPercentage || "")))
+                                                        .append($("<td>").text((p.discount || "")));
+                                                })
+                                                .value()
+                                            )
+                                    } else {
+                                        $("#loadProgressValue").text(next);
+                                    }
+                                },
+                                function(status) {
+                                    console.log(status);
+                                },
+                                function() {}
+                            );
+                        });
+                    }
+                );
+        }
+
         function onRefresh() {
             $.when(_dataWrapper().getProduct($("#brandInput").attr("data-brand-code"))).then(
                 function(data) {
@@ -233,85 +310,13 @@ Murnesty.Watson = function() {
         }
 
         return {
+            onload: onload,
             onRefresh: onRefresh
         };
     }
 
     function init() {
-        $("#loaderSpinner").removeClass("d-none");
-        $.when(_dataWrapper().getBrands())
-            .then(
-                function(data) {
-                    var products = [];
-
-                    _uiWrapper().setupBrandSelectBox($("#brandInput"), data.brands);
-                    _uiWrapper().setupBrandList($("#brandList"), data);
-
-                    $("#loadProgressTotal").text(data.brands.length);
-                    $("#loadProgressWord").text("Loading : ");
-                    data.brands.forEach((x, i) => {
-                        var items = x.brandUrl.split("/");
-                        $.when(_dataWrapper().getProduct(items[items.length - 2])).then(
-                            function(serverData) {
-                                var curr = $("#loadProgressValue").text();
-                                var next = parseInt(curr) + 1;
-
-                                products = products.concat(serverData.filter(x => x.discount > 0));
-                                if (next >= data.brands.length) {
-                                    $("#loaderSpinner").addClass("d-none");
-
-                                    $("#loadProgressWord").text("Loaded : ");
-                                    $("#loadProgressValue").text(data.brands.length);
-                                    $("#loadProgressRemarks").text(` (${products.length} Products)`);
-                                    $("#allProductTable")
-                                        .empty()
-                                        .append(
-                                            $("<tr>")
-                                            .append($("<th>").text("Brand"))
-                                            .append($("<th>").text("Product ↓❹"))
-                                            .append($("<th>").text("Original Price (RM) ↓❸"))
-                                            .append($("<th>").text("Current Price (RM)"))
-                                            .append($("<th>").text("Discount Percent (%) ↑❶"))
-                                            .append($("<th>").text("Discount (RM) ↑❷"))
-                                        )
-                                        .append(
-                                            _.chain(products)
-                                            .orderBy(["discountPercentage", "discount", "price.value", "name"], ["desc", "desc", "asc", "asc"])
-                                            .map((p) => {
-                                                return $("<tr>")
-                                                    .append($("<td>").text((p.masterBrand || {}).name))
-                                                    .append(
-                                                        $("<td>")
-                                                        .text((p.name || ""))
-                                                        .css({
-                                                            cursor: "pointer"
-                                                        })
-                                                        .tooltip({
-                                                            html: true,
-                                                            placement: "bottom",
-                                                            title: `<img src="${p.imgUrl}" alt="${p.name}" width="128" height="128">`
-                                                        })
-                                                        .click(() => window.open(p.prodUrl))
-                                                    )
-                                                    .append($("<td>").text((p.price || {}).value))
-                                                    .append($("<td>").text((p.elabMarkDownPrice || {}).value))
-                                                    .append($("<td>").text((p.discountPercentage || "")))
-                                                    .append($("<td>").text((p.discount || "")));
-                                            })
-                                            .value()
-                                        )
-                                } else {
-                                    $("#loadProgressValue").text(next);
-                                }
-                            },
-                            function(status) {
-                                console.log(status);
-                            },
-                            function() {}
-                        );
-                    });
-                }
-            );
+        _controllerWrapper().onload();
     }
 
     return {

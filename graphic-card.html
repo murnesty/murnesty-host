@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title> Coursera </title>
+
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/graphic_card.css" />
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css" />
+
+    <script src="https://kit.fontawesome.com/4d89d52e05.js" crossorigin="anonymous"></script>
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="lib/jquery/dist/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/lodash/lodash.min.js"></script>
+    <script src="js/site.js"></script>
+    <script src="js/graphic_card.js"></script>
+</head>
+
+<body>
+    <div id="loaderSpinner" class="position-absolute spinner-border text-primary d-none" style="top: 50%; left: 50%"></div>
+
+    <div class="jumbotron text-center">
+        <h1>Graphic Card List</h1>
+        <p>Product List , Promotion List</p>
+    </div>
+
+    <div class="m-4" style="min-height: 400px">
+
+        <ul class="nav nav-tabs">
+            <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#allDiscounts">Discount List</a></li>
+            <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#singleProduct">Product</a></li>
+        </ul>
+
+        <div class="tab-content border-left border-right border-bottom p-3">
+            <div id="singleProduct" class="tab-pane fade">
+                <div>
+                    <div class="card card-body m-4" style="height: 200px; overflow: auto;">
+                        <div class="d-block">
+                            <div class="w-50 float-right" style="z-index: 999">
+                                <h6>Brands :</h6>
+                                <div id="brandList"></div>
+                            </div>
+
+                            <div class="w-25 sticky-top">
+                                <div class="mb-4">
+                                    <span>Brand :</span>
+                                    <select id="brandInput"></select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card card-body m-4">
+                        <table id="productTable" class="product-table"></table>
+                    </div>
+                </div>
+            </div>
+
+            <div id="allDiscounts" class="tab-pane active">
+                <h3 class="d-inline">Discount list</h3>
+                <span class="ml-3 border rounded small p-1" style="box-sizing: border-box;">
+                    <span id="loadProgressWord"></span><span id="loadProgressValue">0</span>/<span id="loadProgressTotal">0</span> Brands
+                <spin id="loadProgressRemarks"></spin>
+                </span>
+                <table id="allProductTable" class="product-table mt-3"></table>
+            </div>
+
+            <div id="menu2" class="tab-pane fade">
+                <h3>Menu 2</h3>
+                <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.</p>
+            </div>
+
+            <div id="menu3" class="tab-pane fade">
+                <h3>Menu 3</h3>
+                <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+            </div>
+        </div>
+    </div>
+
+    <footer style="height: 100px; width: 100%">
+        <div class="jumbotron text-center text-white bg-dark">
+            <div>
+                <img class="d-inline" style="margin-top:-20px; margin-right: 10px; border-radius: 50%;" src="images/panda.jpg" alt="images/panda.jpg" height="48" width="48">
+                <h1 class="d-inline">Murnesty</h1>
+            </div>
+            <p class="mt-2">for study purpose</p>
+        </div>
+    </footer>
+
+    <script>
+        $(document).ready(function() {
+            new Murnesty.GraphicCard().init();
+        });
+    </script>
+</body>
+
+</html>
