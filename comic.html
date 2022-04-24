@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title> Coursera </title>
+
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/comic.css" />
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css" />
+
+    <script src="https://kit.fontawesome.com/4d89d52e05.js" crossorigin="anonymous"></script>
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="lib/jquery/dist/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/lodash/lodash.min.js"></script>
+    <script src="js/site.js"></script>
+    <script src="js/comic.js"></script>
+</head>
+
+<body>
+    <div id="loaderSpinner" class="position-absolute spinner-border text-primary d-none" style="top: 50%; left: 50%"></div>
+
+    <div class="jumbotron text-center">
+        <h1>Comics</h1>
+        <p>Japan, China, Korea comics</p>
+    </div>
+
+    <div class="m-4" style="min-height: 400px">
+
+        <ul class="nav nav-tabs">
+            <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#japanComic">All</a></li>
+            <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#japanComic">Japan</a></li>
+            <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#chinaComic">China</a></li>
+            <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#koreaComic">Korea</a></li>
+            <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#bookmarkedComic">Bookmarks</a></li>
+        </ul>
+
+        <div class="tab-content border-left border-right border-bottom p-3">
+            <div id="allComic" class="tab-pane active">
+            </div>
+
+            <div id="japanComic" class="tab-pane active">
+            </div>
+
+            <div id="chinaComic" class="tab-pane fade">
+            </div>
+
+            <div id="koreaComic" class="tab-pane fade">
+            </div>
+
+            <div id="bookmarkedComic" class="tab-pane fade">
+            </div>
+        </div>
+    </div>
+
+    <footer style="height: 100px; width: 100%">
+        <div class="jumbotron text-center text-white bg-dark">
+            <div>
+                <img class="d-inline" style="margin-top:-20px; margin-right: 10px; border-radius: 50%;" src="images/panda.jpg" alt="images/panda.jpg" height="48" width="48">
+                <h1 class="d-inline">Murnesty</h1>
+            </div>
+            <p class="mt-2">for study purpose</p>
+        </div>
+    </footer>
+
+
+    <script>
+        $(document).ready(function() {
+            new Murnesty.Comic().init();
+        });
+    </script>
+</body>
+
+</html>
