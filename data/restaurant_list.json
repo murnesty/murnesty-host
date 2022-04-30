@@ -1,0 +1,111 @@
+[{
+    "id": "s11",
+    "name": "S11",
+    "priceRange": "RM10-",
+    "foods": [{
+        "name": "Gai Fan",
+        "value": 6.5
+    }, {
+        "name": "Charsiew Gai Fan",
+        "value": 6.5
+    }, {
+        "name": "Siuyuk Gai Fan",
+        "value": 6.5
+    }, {
+        "name": "Charsiew Siuyuk Fan",
+        "value": 6.5
+    }, {
+        "name": "R1 Taiwan Braised Pork Rice",
+        "value": 9
+    }, {
+        "name": "R2 Taiwan Braised Pork Knuckle Rice",
+        "value": 11
+    }, {
+        "name": "R3 Taiwan Minced Pork Rice",
+        "value": 8
+    }, {
+        "name": "R4 Taiwan Croquette Rice",
+        "value": 9
+    }, {
+        "name": "R5 Crispy Chicken Steak Rice",
+        "value": 9
+    }, {
+        "name": "Taiwan Salted Chicken Rice",
+        "value": 9
+    }]
+}, {
+    "id": "korea",
+    "name": "Korea",
+    "priceRange": "RM10-",
+    "foods": [{
+        "name": "Gai Fan",
+        "value": 6.5
+    }, {
+        "name": "Charsiew Gai Fan",
+        "value": 6.5
+    }, {
+        "name": "Siuyuk Gai Fan",
+        "value": 6.5
+    }, {
+        "name": "Charsiew Siuyuk Fan",
+        "value": 6.5
+    }]
+}, {
+    "id": "gouw",
+    "name": "Gouw",
+    "priceRange": "RM10-",
+    "foods": [{
+        "name": "Gai Fan",
+        "value": 6.5
+    }, {
+        "name": "Charsiew Gai Fan",
+        "value": 6.5
+    }, {
+        "name": "Siuyuk Gai Fan",
+        "value": 6.5
+    }, {
+        "name": "Charsiew Siuyuk Fan",
+        "value": 6.5
+    }]
+}, {
+    "id": "ss3_mj",
+    "name": "SS3 MJ",
+    "priceRange": "RM10-",
+    "foods": [{
+        "name": "Gai Fan",
+        "value": 6.5
+    }, {
+        "name": "Charsiew Gai Fan",
+        "value": 8.5
+    }, {
+        "name": "Siuyuk Gai Fan",
+        "value": 8.5
+    }, {
+        "name": "Charsiew Siuyuk Fan",
+        "value": 8.5
+    }]
+}, {
+    "id": "double_joy",
+    "name": "Double Joy",
+    "priceRange": "RM10-20"
+}, {
+    "id": "boran",
+    "name": "Boran",
+    "priceRange": "RM10-20"
+}, {
+    "id": "tang_pin",
+    "name": "Tang Pin",
+    "priceRange": "RM10-20"
+}, {
+    "id": "mcd",
+    "name": "MCD",
+    "priceRange": "RM10-20"
+}, {
+    "id": "ribs_king",
+    "name": "Ribs King",
+    "priceRange": "RM10-20"
+}, {
+    "id": "spades_burger",
+    "name": "Spade's Burger",
+    "priceRange": "RM20+"
+}]

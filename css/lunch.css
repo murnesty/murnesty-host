@@ -70,10 +70,10 @@
 }
 
 #restaurants #shops {
-    max-width: 35ch;
+    min-width: 30ch;
 }
 
-#restaurants #menu {}
+#restaurants #detail {}
 
 
 /* table */
@@ -119,5 +119,9 @@ tr:nth-child(even) {
 
 tr:hover {
     cursor: pointer;
+    background-color: lightskyblue;
+}
+
+tr.active {
     background-color: lightskyblue;
 }

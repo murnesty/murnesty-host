@@ -1,50 +1,8 @@
 Murnesty = Murnesty || {};
 Murnesty.Lunch = function() {
-    var shops = [{
-        id: "s11",
-        name: "S11",
-        priceRange: "RM10-"
-    }, {
-        id: "korea",
-        name: "Korea",
-        priceRange: "RM10-"
-    }, {
-        id: "gouw",
-        name: "Gouw",
-        priceRange: "RM10-"
-    }, {
-        id: "ss3_mj",
-        name: "SS3 MJ",
-        priceRange: "RM10-"
-    }, {
-        id: "double_joy",
-        name: "Double Joy",
-        priceRange: "RM10-20"
-    }, {
-        id: "boran",
-        name: "Boran",
-        priceRange: "RM10-20"
-    }, {
-        id: "tang_pin",
-        name: "Tang Pin",
-        priceRange: "RM10-20"
-    }, {
-        id: "mcd",
-        name: "MCD",
-        priceRange: "RM10-20"
-    }, {
-        id: "ribs_king",
-        name: "Ribs King",
-        priceRange: "RM10-20"
-    }, {
-        id: "spades_burger",
-        name: "Spade's Burger",
-        priceRange: "RM20+"
-    }];
 
-    function sortTable(n) {
-        var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
-        table = document.getElementById("shopList");
+    function sortTable(table, n) {
+        var rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
         switching = true;
         // Set the sorting direction to ascending:
         dir = "asc";
@@ -103,7 +61,8 @@ Murnesty.Lunch = function() {
         }
     }
 
-    function _setupRestaurantShops() {
+    function _setupRestaurants(shops) {
+        // Shop header
         $("#shopList").append(`
             <tr>
                 <th id="shopNoHeader">No</th>
@@ -111,10 +70,9 @@ Murnesty.Lunch = function() {
                 <th id="shopPriceHeader">Price</th>
             </tr>
         `);
-
+        // Shop content
         for (let i = 0; i < shops.length; i++) {
             let shop = shops[i];
-
             $("#shopList").append(`
                 <tr id="${shop.id}" class="shop-item">
                     <td class="number">${i + 1}</td>
@@ -122,54 +80,62 @@ Murnesty.Lunch = function() {
                     <td>${shop.priceRange}</th>
                 </tr>
             `);
-
-            $("#menu").append(`
-                <div id=${shop.id}_menu class="menu-item" style="display: none;">
-                    ${shop.name}
-                </div>
-            `);
         }
+        // Shop event
+        $(".shop-item").click(function() {
+            // Handle selected shop UI
+            $(".shop-item").removeClass("active");
+            $(this).addClass("active");
+
+            // Handle selected detail UI
+            var shop = shops.find(x => x.id == $(this).attr("id"));
+            _setupMenuFoods(shop.foods);
+        });
+        var table = document.getElementById("shopList");
+        $("#shopNoHeader").click(() => sortTable(table, 0));
+        $("#shopNameHeader").click(() => sortTable(table, 1));
+        $("#shopPriceHeader").click(() => sortTable(table, 2));
     }
 
-    function _setupEvents() {
-        // TODO : view type button group
-        // $(".restaurant-view-btn").click(function(event) {
+    function _setupMenuFoods(foods) {
+        if (foods != null) {
+            // Food header
+            $("#foodList")
+                .empty()
+                .append(`
+                    <tr>
+                    <th id="foodNoHeader">No</th>
+                    <th id="foodNameHeader">Name</th>
+                    <th id="foodPriceHeader">Price</th>
+                    </tr>
+                `);
+            // Food content
+            for (let j = 0; j < foods.length; j++) {
+                let food = foods[j];
 
-        //     console.log("click..");
-
-        //     $(".restaurant-view-btn").removeClass("active");
-        //     $(event.currentTarget).addClass("active");
-        // });
-
-        $(".shop-item").click(function() {
-            //alert("click " + $(this).attr("id"));
-            $(".menu-item").hide();
-            $("#" + $(this).attr("id") + "_menu").show();
-        });
-
-        $("#shopNoHeader").click(() => sortTable(0));
-        $("#shopNameHeader").click(() => sortTable(1));
-        $("#shopPriceHeader").click(() => sortTable(2));
-
-
-        function allowDrop(ev) {
-            ev.preventDefault();
-        }
-
-        function drag(ev) {
-            ev.dataTransfer.setData("text", ev.target.id);
-        }
-
-        function drop(ev) {
-            ev.preventDefault();
-            var data = ev.dataTransfer.getData("text");
-            ev.target.appendChild(document.getElementById(data));
+                $("#foodList")
+                    .append(`
+                        <tr class="food-item">
+                            <td class="number">${j + 1}</td>
+                            <td>${food.name}</th>
+                            <td>${food.value}</th>
+                        </tr>
+                    `);
+            }
+            // Food event
+            var table2 = document.getElementById("foodList");
+            $("#foodNoHeader").click(() => sortTable(table2, 0));
+            $("#foodNameHeader").click(() => sortTable(table2, 1));
+            $("#foodPriceHeader").click(() => sortTable(table2, 2));
+        } else {
+            $("#foodList").empty();
         }
     }
 
     function init() {
-        _setupRestaurantShops();
-        _setupEvents();
+        $.getJSON("/data/restaurant_list.json", function(shops) {
+            _setupRestaurants(shops);
+        });
     }
 
     return {
