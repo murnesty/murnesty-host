@@ -254,11 +254,11 @@ Murnesty.Lunch = function() {
     }
 
     function init() {
-        $.getJSON("../data/restaurant_list.json", function(shops) {
+        $.getJSON("./data/restaurant_list.json", function(shops) {
             _setupRestaurants(shops);
         });
 
-        $.getJSON("../data/user_list.json", function(users) {
+        $.getJSON("./data/user_list.json", function(users) {
             _setupOrders(users);
         });
     }
