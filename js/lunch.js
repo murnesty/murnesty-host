@@ -167,6 +167,7 @@ Murnesty.Lunch = function() {
                         <th id="userFoodHeader">Food</th>
                         <th id="userPriceHeader">Price</th>
                         <th id="userRemarkHeader">Remarks</th>
+                        <th id="userDeleteHeader">Clear</th>
                     </tr>
                 `);
             // User content
@@ -176,6 +177,7 @@ Murnesty.Lunch = function() {
                 let cachedShopName = cachedOrder != null ? cachedOrder.shopName : "";
                 let cachedFoodName = cachedOrder != null ? cachedOrder.foodName : "";
                 let cachedFoodPrice = cachedOrder != null ? cachedOrder.foodPrice : "";
+                let cachedFoodRemark = cachedOrder != null ? cachedOrder.foodRemark : "";
                 let row = $(`
                     <tr class="order-item">
                         <td class="number">${j + 1}</td>
@@ -183,16 +185,25 @@ Murnesty.Lunch = function() {
                         <td>${cachedShopName || ""}</td>
                         <td>${cachedFoodName || ""}</td>
                         <td>${cachedFoodPrice || ""}</td>
-                        <td><input class="user-remark-input"></input></td>
+                        <td><input class="user-remark-input" data-userName="${user}" value="${cachedFoodRemark || ""}"></input></td>
+                        <td><div class="user-clear-button btn btn-sm btn-dark" data-userName="${user}" title="Clear Order"><i class="fa fa-times"></i></div></td>
                     </tr>
                 `);
                 if (cachedOrder == null) {
-                    cachedOrders.push({ no: j + 1, userName: user, shopName: cachedShopName, foodName: cachedFoodName, foodPrice: cachedFoodPrice });
+                    cachedOrders.push({
+                        no: j + 1,
+                        userName: user,
+                        shopName: cachedShopName,
+                        foodName: cachedFoodName,
+                        foodPrice: cachedFoodPrice,
+                        foodRemark: cachedFoodRemark
+                    });
                 } else {
                     row.attr({
                         "data-shopName": cachedShopName,
                         "data-foodName": cachedFoodName,
-                        "data-foodPrice": cachedFoodPrice
+                        "data-foodPrice": cachedFoodPrice,
+                        "data-foodRemark": cachedFoodRemark
                     });
                 }
                 row
@@ -221,6 +232,37 @@ Murnesty.Lunch = function() {
                 $("#orderList").append(row);
             }
             // User event
+            $(".user-remark-input").keyup(function(eventData) {
+                let order = cachedOrders.find(x => x.userName === $(this).attr("data-userName"));
+                if (order != null) {
+                    order.foodRemark = $(this)[0].value;
+                    localStorage.setItem("orderList", JSON.stringify(cachedOrders));
+                }
+            });
+            $(".user-clear-button").click(function() {
+                let order = cachedOrders.find(x => x.userName === $(this).attr("data-userName"));
+                if (order != null) {
+                    order.shopName = "";
+                    order.foodName = "";
+                    order.foodPrice = "";
+                    order.foodRemark = "";
+                    localStorage.setItem("orderList", JSON.stringify(cachedOrders));
+                    for (let element of $(".order-item")) {
+                        if (element.children[1].innerText === order.userName) {
+                            element.children[2].innerText = "";
+                            element.children[3].innerText = "";
+                            element.children[4].innerText = "";
+                            element.children[4].innerText = "";
+                            $(element).attr({
+                                "data-shopName": "",
+                                "data-foodName": "",
+                                "data-foodPrice": "",
+                                "data-foodRemark": ""
+                            });
+                        }
+                    }
+                }
+            });
             $(".order-item").click(function() {
                 let shopSelected = $(".shop-item.active");
                 let foodSelected = $(".food-item.active");
@@ -233,10 +275,15 @@ Murnesty.Lunch = function() {
                         $(this).children()[2].innerText = shopName;
                         $(this).children()[3].innerText = foodName;
                         $(this).children()[4].innerText = foodPrice;
-                    } else if ($(this).attr("data-shopName") !== $(this).children()[2].innerText ||
-                        $(this).attr("data-foodName") !== $(this).children()[3].innerText) {
+                    } else if (
+                        ($(this).attr("data-shopName") != "") &&
+                        (
+                            $(this).attr("data-shopName") !== $(this).children()[2].innerText ||
+                            $(this).attr("data-foodName") !== $(this).children()[3].innerText
+                        )
+                    ) {
                         $("#modalOrderName").text($(this).children()[1].innerText);
-                        $("#modalFoodFrom").text($(this).children()[2].innerText);
+                        $("#modalFoodFrom").text($(this).children()[3].innerText);
                         $("#modalFoodTo").text(foodName);
                         $('#confirmFoodOrderModal').modal("show");
                         var tableRow = $(this);
@@ -247,10 +294,12 @@ Murnesty.Lunch = function() {
                             $('#confirmFoodOrderModal').modal("hide");
                         });
                     }
+                    let foodRemark = $(this).children()[5].children[0].value;
                     $(this).attr({
                         "data-shopName": shopName,
                         "data-foodName": foodName,
-                        "data-foodPrice": foodPrice
+                        "data-foodPrice": foodPrice,
+                        "data-foodRemark": foodRemark
                     });
                     let order = cachedOrders.find(x => x.userName === $(this).children()[1].innerText);
                     order.shopName = shopName;
