@@ -1,5 +1,6 @@
 Murnesty = Murnesty || {};
 Murnesty.Lunch = function() {
+    var foodList = [];
 
     function sortTable(table, n) {
         var rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
@@ -30,7 +31,10 @@ Murnesty.Lunch = function() {
                     next = parseInt(next);
                 }
                 if (dir == "asc") {
-                    if (prev > next) {
+                    if (prev === "" && next !== "") {
+                        shouldSwitch = true;
+                        break;
+                    } else if (prev > next && next !== "") {
                         // If so, mark as a switch and break the loop:
                         shouldSwitch = true;
                         break;
@@ -61,6 +65,14 @@ Murnesty.Lunch = function() {
         }
     }
 
+    function _setupNotification(element, text) {
+        // element.text(text);
+        // element.addClass("active");
+        // setTimeout(function() {
+        //     element.removeClass("active");
+        // }, 2000);
+    }
+
     function _setupRestaurants(shops) {
         // Shop header
         $("#shopList").append(`
@@ -89,7 +101,10 @@ Murnesty.Lunch = function() {
 
             // Handle selected detail UI
             var shop = shops.find(x => x.id == $(this).attr("id"));
+            foodList = shop.foods;
             _setupMenuFoods(shop.foods);
+
+            _setupNotification($("#shopNotification"), "Select food now");
         });
         var table = document.getElementById("shopList");
         $("#shopNoHeader").click(() => sortTable(table, 0));
@@ -123,18 +138,128 @@ Murnesty.Lunch = function() {
                     `);
             }
             // Food event
-            var table2 = document.getElementById("foodList");
-            $("#foodNoHeader").click(() => sortTable(table2, 0));
-            $("#foodNameHeader").click(() => sortTable(table2, 1));
-            $("#foodPriceHeader").click(() => sortTable(table2, 2));
+            $(".food-item").click(function() {
+                $(".food-item").removeClass("active");
+                $(this).addClass("active");
+
+                _setupNotification($("#foodNotification"), "Select user now");
+            });
+            var table = document.getElementById("foodList");
+            $("#foodNoHeader").click(() => sortTable(table, 0));
+            $("#foodNameHeader").click(() => sortTable(table, 1));
+            $("#foodPriceHeader").click(() => sortTable(table, 2));
         } else {
             $("#foodList").empty();
+        }
+    }
+
+    function _setupOrders(users) {
+        if (users != null) {
+            // User header
+            $("#orderList")
+                .empty()
+                .append(`
+                    <tr>
+                        <th id="userNoHeader">No</th>
+                        <th id="userNameHeader">Name</th>
+                        <th id="userShopHeader">Shop</th>
+                        <th id="userFoodHeader">Food</th>
+                        <th id="userPriceHeader">Price</th>
+                        <th id="userRemarkHeader">Remarks</th>
+                    </tr>
+                `);
+            // User content
+            for (let j = 0; j < users.length; j++) {
+                let user = users[j];
+                let row = $(`
+                    <tr class="order-item">
+                        <td class="number">${j + 1}</td>
+                        <td>${user}</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td><input class="user-remark-input"></input></td>
+                    </tr>
+                `);
+                row
+                    .hover(function() {
+                        var shopSelected = $(".shop-item.active");
+                        var foodSelected = $(".food-item.active");
+                        if (shopSelected.length > 0 && foodSelected.length > 0) {
+                            var shopName = shopSelected.children()[1].innerText;
+                            var foodName = foodSelected.children()[1].innerText;
+                            var foodPrice = foodSelected.children()[2].innerText;
+                            row.children()[2].innerText = shopName;
+                            row.children()[3].innerText = foodName;
+                            row.children()[4].innerText = foodPrice;
+                            row.css("color", "gray");
+                        }
+                    })
+                    .mouseleave(function() {
+                        var shopName = row.attr("data-shopName");
+                        var foodName = row.attr("data-foodName");
+                        var foodPrice = row.attr("data-foodPrice");
+                        row.children()[2].innerText = shopName || "";
+                        row.children()[3].innerText = foodName || "";
+                        row.children()[4].innerText = foodPrice || "";
+                        row.css("color", "black");
+                    });
+                $("#orderList").append(row);
+            }
+            // User event
+            $(".order-item").click(function() {
+                var shopSelected = $(".shop-item.active");
+                var foodSelected = $(".food-item.active");
+                if (foodSelected.length === 1) {
+                    var shopName = shopSelected.children()[1].innerText;
+                    var foodName = foodSelected.children()[1].innerText;
+                    var foodPrice = foodSelected.children()[2].innerText;
+                    if ($(this).attr("data-shopName") == undefined &&
+                        $(this).attr("data-foodName") == undefined) {
+                        $(this).children()[2].innerText = shopName;
+                        $(this).children()[3].innerText = foodName;
+                        $(this).children()[4].innerText = foodPrice;
+                    } else if ($(this).attr("data-shopName") !== $(this).children()[2].innerText ||
+                        $(this).attr("data-foodName") !== $(this).children()[3].innerText) {
+                        $("#modalOrderName").text($(this).children()[1].innerText);
+                        $("#modalFoodFrom").text($(this).children()[2].innerText);
+                        $("#modalFoodTo").text(foodName);
+                        $('#confirmFoodOrderModal').modal("show");
+                        var tableRow = $(this);
+                        $('#modalOkButton').click(function() {
+                            tableRow.children()[2].innerText = shopName;
+                            tableRow.children()[3].innerText = foodName;
+                            tableRow.children()[4].innerText = foodPrice;
+                            $('#confirmFoodOrderModal').modal("hide");
+                        });
+                    }
+                    $(this).attr({
+                        "data-shopName": shopName,
+                        "data-foodName": foodName,
+                        "data-foodPrice": foodPrice
+                    });
+                }
+            });
+            var table = document.getElementById("orderList");
+            $("#userNoHeader").click(() => sortTable(table, 0));
+            $("#userNameHeader").click(() => sortTable(table, 1));
+            $("#userShopHeader").click(() => sortTable(table, 2));
+            $("#userFoodHeader").click(() => sortTable(table, 3));
+            $("#userPriceHeader").click(() => sortTable(table, 4));
+            $(".user-remark-input").click((event) => {
+                event.stopPropagation();
+                event.stopImmediatePropagation();
+            });
         }
     }
 
     function init() {
         $.getJSON("/data/restaurant_list.json", function(shops) {
             _setupRestaurants(shops);
+        });
+
+        $.getJSON("/data/user_list.json", function(users) {
+            _setupOrders(users);
         });
     }
 

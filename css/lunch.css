@@ -41,42 +41,34 @@
 
 .main-box {
     display: flex;
-    flex-wrap: wrap;
-    height: 73vh;
-    margin: 1vh 2vw;
-    gap: 1%;
-}
-
-.main-box .restaurant-box {
-    flex: 1 1 69%;
-}
-
-.main-box .order-box {
-    max-width: 40ch;
-    flex: 1 1 30%;
-}
-
-.restaurant-view-btn:hover {
-    cursor: pointer;
-}
-
-#restaurants {
-    margin: 1rem 0;
-    height: calc(73vh - 40px - 31.98px - 32px);
-    overflow-y: auto;
-    display: flex;
     flex-wrap: no-wrap;
+    margin: 1vh 1%;
     gap: 1%;
 }
 
-#restaurants #shops {
-    min-width: 30ch;
+.main-box>* {
+    flex: 1 1 30%
 }
 
-#restaurants #detail {}
+
+/* Notification */
+
+.notification {
+    transition: opacity .5s ease-out;
+    opacity: 0;
+}
+
+.notification.active {
+    opacity: 1;
+}
 
 
 /* table */
+
+.table-container {
+    max-height: 500px;
+    overflow: auto;
+}
 
 table {
     font-size: .8rem;
