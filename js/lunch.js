@@ -1,6 +1,7 @@
 Murnesty = Murnesty || {};
 Murnesty.Lunch = function() {
     var foodList = [];
+    var cachedOrders = JSON.parse(localStorage.getItem("orderList")) || [];
 
     function sortTable(table, n) {
         var rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
@@ -171,24 +172,37 @@ Murnesty.Lunch = function() {
             // User content
             for (let j = 0; j < users.length; j++) {
                 let user = users[j];
+                let cachedOrder = (cachedOrders != null) ? cachedOrders.find(x => x.userName === user) : undefined;
+                let cachedShopName = cachedOrder != null ? cachedOrder.shopName : "";
+                let cachedFoodName = cachedOrder != null ? cachedOrder.foodName : "";
+                let cachedFoodPrice = cachedOrder != null ? cachedOrder.foodPrice : "";
                 let row = $(`
                     <tr class="order-item">
                         <td class="number">${j + 1}</td>
                         <td>${user}</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td>${cachedShopName || ""}</td>
+                        <td>${cachedFoodName || ""}</td>
+                        <td>${cachedFoodPrice || ""}</td>
                         <td><input class="user-remark-input"></input></td>
                     </tr>
                 `);
+                if (cachedOrder == null) {
+                    cachedOrders.push({ no: j + 1, userName: user, shopName: cachedShopName, foodName: cachedFoodName, foodPrice: cachedFoodPrice });
+                } else {
+                    row.attr({
+                        "data-shopName": cachedShopName,
+                        "data-foodName": cachedFoodName,
+                        "data-foodPrice": cachedFoodPrice
+                    });
+                }
                 row
                     .hover(function() {
-                        var shopSelected = $(".shop-item.active");
-                        var foodSelected = $(".food-item.active");
+                        let shopSelected = $(".shop-item.active");
+                        let foodSelected = $(".food-item.active");
                         if (shopSelected.length > 0 && foodSelected.length > 0) {
-                            var shopName = shopSelected.children()[1].innerText;
-                            var foodName = foodSelected.children()[1].innerText;
-                            var foodPrice = foodSelected.children()[2].innerText;
+                            let shopName = shopSelected.children()[1].innerText;
+                            let foodName = foodSelected.children()[1].innerText;
+                            let foodPrice = foodSelected.children()[2].innerText;
                             row.children()[2].innerText = shopName;
                             row.children()[3].innerText = foodName;
                             row.children()[4].innerText = foodPrice;
@@ -196,9 +210,9 @@ Murnesty.Lunch = function() {
                         }
                     })
                     .mouseleave(function() {
-                        var shopName = row.attr("data-shopName");
-                        var foodName = row.attr("data-foodName");
-                        var foodPrice = row.attr("data-foodPrice");
+                        let shopName = row.attr("data-shopName");
+                        let foodName = row.attr("data-foodName");
+                        let foodPrice = row.attr("data-foodPrice");
                         row.children()[2].innerText = shopName || "";
                         row.children()[3].innerText = foodName || "";
                         row.children()[4].innerText = foodPrice || "";
@@ -208,12 +222,12 @@ Murnesty.Lunch = function() {
             }
             // User event
             $(".order-item").click(function() {
-                var shopSelected = $(".shop-item.active");
-                var foodSelected = $(".food-item.active");
+                let shopSelected = $(".shop-item.active");
+                let foodSelected = $(".food-item.active");
                 if (foodSelected.length === 1) {
-                    var shopName = shopSelected.children()[1].innerText;
-                    var foodName = foodSelected.children()[1].innerText;
-                    var foodPrice = foodSelected.children()[2].innerText;
+                    let shopName = shopSelected.children()[1].innerText;
+                    let foodName = foodSelected.children()[1].innerText;
+                    let foodPrice = foodSelected.children()[2].innerText;
                     if ($(this).attr("data-shopName") == undefined &&
                         $(this).attr("data-foodName") == undefined) {
                         $(this).children()[2].innerText = shopName;
@@ -238,7 +252,14 @@ Murnesty.Lunch = function() {
                         "data-foodName": foodName,
                         "data-foodPrice": foodPrice
                     });
+                    let order = cachedOrders.find(x => x.userName === $(this).children()[1].innerText);
+                    order.shopName = shopName;
+                    order.foodName = foodName;
+                    order.foodPrice = foodPrice;
                 }
+                // var expireDate = new Date();
+                // expireDate.setTime(expireDate.getTime() + (1 * 24 * 60 * 60 * 1000));
+                localStorage.setItem("orderList", JSON.stringify(cachedOrders));
             });
             var table = document.getElementById("orderList");
             $("#userNoHeader").click(() => sortTable(table, 0));
@@ -249,6 +270,10 @@ Murnesty.Lunch = function() {
             $(".user-remark-input").click((event) => {
                 event.stopPropagation();
                 event.stopImmediatePropagation();
+            });
+            $("#clearCachedOrders").click(function() {
+                localStorage.removeItem("orderList");
+                location.reload();
             });
         }
     }
