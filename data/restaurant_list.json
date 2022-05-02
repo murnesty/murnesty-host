@@ -2,7 +2,23 @@
     "id": "s11",
     "name": "S11",
     "priceRange": "RM10-",
+    "menu_pics": [{
+        "name": "Pork Noodle",
+        "path": "../images/menu/s11_meikeng/pork_noodle_menu.PNG"
+    }, {
+        "name": "Chicken Chop",
+        "path": "../images/menu/s11_meikeng/chicken_chop_menu1.jpg"
+    }, {
+        "name": "Chicken Chop",
+        "path": "../images/menu/s11_meikeng/chicken_chop_menu2.jpg"
+    }, {
+        "name": "Chicken Chop",
+        "path": "../images/menu/s11_meikeng/chicken_chop_menu3.jpg"
+    }],
     "foods": [{
+        "name": "Zap Fan",
+        "value": 9
+    }, {
         "name": "Gai Fan",
         "value": 6.5
     }, {
@@ -13,6 +29,32 @@
         "value": 6.5
     }, {
         "name": "Charsiew Siuyuk Fan",
+        "value": 6.5
+    }, {
+        "name": "Char Kuey Teow",
+        "value": 6.5,
+        "pic": "../images/menu/s11_meikeng/char_kuey_teow.PNG"
+    }, {
+        "name": "Wantan Mee",
+        "value": 6.5,
+        "pic": "../images/menu/s11_meikeng/wantan_mee.PNG"
+    }, {
+        "name": "Pork Soup Rice",
+        "value": 7
+    }, {
+        "name": "Bitter Gourd Pork Rice",
+        "value": 7
+    }, {
+        "name": "Pork Yee Mee Soup",
+        "value": 6.5
+    }, {
+        "name": "Bitter Gourd Pork Noodle Dry/Soup",
+        "value": 5.5
+    }, {
+        "name": "Pork Noodle Dry/Soup",
+        "value": 5.5
+    }, {
+        "name": "Bitter Gourd Pork Yee Min Soup",
         "value": 6.5
     }, {
         "name": "R1 Taiwan Braised Pork Rice",
@@ -39,7 +81,8 @@
     "priceRange": "RM10-",
     "foods": [{
         "name": "Gai Fan",
-        "value": 6.5
+        "value": 6.5,
+        "pic": "../images/menu/pompom/gaifan.PNG"
     }, {
         "name": "Charsiew Gai Fan",
         "value": 6.5
@@ -49,10 +92,17 @@
     }, {
         "name": "Charsiew Siuyuk Fan",
         "value": 6.5
+    }, {
+        "name": "Pork Noodle",
+        "value": 0,
+        "pic": "../images/menu/pompom/zhu_yok_fan.PNG"
+    }, {
+        "name": "Claypot Chicken Rice",
+        "value": 0
     }]
 }, {
-    "id": "gouw",
-    "name": "Gouw",
+    "id": "siongpin",
+    "name": "Siong Pin",
     "priceRange": "RM10-",
     "foods": [{
         "name": "Gai Fan",
@@ -66,11 +116,52 @@
     }, {
         "name": "Charsiew Siuyuk Fan",
         "value": 6.5
+    }, {
+        "name": "Mee Java Goreng",
+        "value": 7,
+        "pic": "../images/menu/siongpin/mee_java_goreng.PNG"
+    }, {
+        "name": "Curry Mee",
+        "value": 0,
+        "pic": "../images/menu/siongpin/curry_mee.PNG"
+    }, {
+        "name": "Wantan Mee",
+        "value": 7,
+        "pic": "../images/menu/siongpin/wantan_mee.PNG"
+    }, {
+        "name": "Pork Noodle",
+        "value": 0,
+        "pic": "../images/menu/siongpin/pork_noodle.PNG"
     }]
 }, {
     "id": "ss3_mj",
     "name": "SS3 MJ",
     "priceRange": "RM10-",
+    "menu_pics": [{
+        "name": "Char Kuey Teow",
+        "path": "../images/menu/ss3_mj/char_kuey_teow_menu.PNG"
+    }, {
+        "name": "Chee Cheong Fun",
+        "path": "../images/menu/ss3_mj/chee_cheong_fun_menu.PNG"
+    }, {
+        "name": "Curry Mee",
+        "path": "../images/menu/ss3_mj/curry_mee_noodle.PNG"
+    }, {
+        "name": "Gai Fan",
+        "path": "../images/menu/ss3_mj/gai_fan.PNG"
+    }, {
+        "name": "Pan Mee",
+        "path": "../images/menu/ss3_mj/pan_mee_menu.PNG"
+    }, {
+        "name": "Pork Noodle",
+        "path": "../images/menu/ss3_mj/pork_noodle_menu.PNG"
+    }, {
+        "name": "Shui Jiao Noodle",
+        "path": "../images/menu/ss3_mj/shui_jiao_noodle.PNG"
+    }, {
+        "name": "Toast",
+        "path": "../images/menu/ss3_mj/toast_menu.PNG"
+    }],
     "foods": [{
         "name": "Gai Fan",
         "value": 6.5
@@ -83,15 +174,117 @@
     }, {
         "name": "Charsiew Siuyuk Fan",
         "value": 8.5
+    }, {
+        "name": "Curry Mee Dry/Soup",
+        "value": 7
+    }, {
+        "name": "Chee Cheong Fun (sweet & spicy)",
+        "value": 4
+    }, {
+        "name": "Chee Cheong Fun (curry pork skin)",
+        "value": 5.2
+    }, {
+        "name": "Chee Cheong Fun (mushroom minced meat)",
+        "value": 4.7
+    }, {
+        "name": "Char Kuey Teow",
+        "value": 7
+    }, {
+        "name": "Char So Hun",
+        "value": 7.5
+    }, {
+        "name": "Char Lai Fun",
+        "value": 7.5
+    }, {
+        "name": "Fried Rice",
+        "value": 7.5
+    }, {
+        "name": "Pork Noodle",
+        "value": 7
+    }, {
+        "name": "Fish Paste Noodle",
+        "value": 8
+    }, {
+        "name": "Fish Ball Noodle",
+        "value": 7
     }]
 }, {
     "id": "double_joy",
     "name": "Double Joy",
-    "priceRange": "RM10-20"
+    "priceRange": "RM10-20",
+    "foods": []
 }, {
     "id": "boran",
     "name": "Boran",
-    "priceRange": "RM10-20"
+    "priceRange": "RM10-20",
+    "menu_pics": [{
+        "name": "Menu 1",
+        "path": "../images/menu/boran/menu1.jpg"
+    }, {
+        "name": "Menu 2",
+        "path": "../images/menu/boran/menu2.jpg"
+    }],
+    "foods": [{
+        "name": "S1 Classic Pork Noodle (reg)",
+        "value": 8.9
+    }, {
+        "name": "S1 Classic Pork Noodle (large)",
+        "value": 11.9
+    }, {
+        "name": "S2 Tom Yum Noodle (reg)",
+        "value": 12.5
+    }, {
+        "name": "S2 Tom Yum Noodle (large)",
+        "value": 14.9
+    }, {
+        "name": "S3 Garlic Pork Rice",
+        "value": 12.5
+    }, {
+        "name": "S4 Thai Basic Minced Pork Rice",
+        "value": 12.5
+    }, {
+        "name": "S5 Hao Lao with Pork Soup & Omelette",
+        "value": 11.9
+    }, {
+        "name": "S6 Mama Tom Yum Noodle with Grilled Pork Neck",
+        "value": 14.9
+    }, {
+        "name": "S7 Dry Tom Yum Noodle",
+        "value": 11.9
+    }, {
+        "name": "S8 Grilled Pork Neck Rice",
+        "value": 13.9
+    }, {
+        "name": "S9 Green Curry Chicken Omelette Rice",
+        "value": 14.9
+    }, {
+        "name": "S10 Thai Fish Cake Rice",
+        "value": 13.5
+    }, {
+        "name": "S11 Pork Belly Skewer Rice",
+        "value": 15.9
+    }, {
+        "name": "S12 Tom Sap Pork Ribs Omelette Rice",
+        "value": 14.9
+    }, {
+        "name": "S13 Tom Sap Pork Rib Thai Noodle/MeeHun",
+        "value": 14.9
+    }, {
+        "name": "S14 Green Curry Pork Belly Rice",
+        "value": 15.9
+    }, {
+        "name": "S15 Green Curry Chicken Maryland Rice",
+        "value": 17.5
+    }, {
+        "name": "S16 Panaang Curry Pork Omelette Rice",
+        "value": 15.9
+    }, {
+        "name": "S17 Thai Omeltte Rice",
+        "value": 11.5
+    }, {
+        "name": "S18 Tom Kha Chicken Omelette Rice",
+        "value": 13.9
+    }]
 }, {
     "id": "tang_pin",
     "name": "Tang Pin",
@@ -107,5 +300,42 @@
 }, {
     "id": "spades_burger",
     "name": "Spade's Burger",
-    "priceRange": "RM20+"
+    "priceRange": "RM20+",
+    "foods": [{
+        "name": "Pork Burger",
+        "value": 9.5
+    }, {
+        "name": "Spades",
+        "value": 9.5
+    }, {
+        "name": "Dark Knight",
+        "value": 9.5
+    }, {
+        "name": "Baconizer",
+        "value": 9.5
+    }, {
+        "name": "Spidey",
+        "value": 9.5
+    }, {
+        "name": "Orgashroom",
+        "value": 9.5
+    }, {
+        "name": "Buttermilk Phynix",
+        "value": 9.5
+    }, {
+        "name": "Hot Chick",
+        "value": 9.5
+    }, {
+        "name": "Chickanizer",
+        "value": 9.5
+    }, {
+        "name": "Salmon Sub",
+        "value": 9.5
+    }, {
+        "name": "Veggieta",
+        "value": 9.5
+    }, {
+        "name": "Shroomception",
+        "value": 9.5
+    }]
 }]
