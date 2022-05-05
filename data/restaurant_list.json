@@ -22,6 +22,12 @@
         "name": "Gai Fan",
         "value": 6.5
     }, {
+        "name": "Siuyuk Fan",
+        "value": 6.5
+    }, {
+        "name": "Charsiew Fan",
+        "value": 6.5
+    }, {
         "name": "Charsiew Gai Fan",
         "value": 6.5
     }, {
@@ -84,6 +90,12 @@
         "value": 6.5,
         "pic": "../images/menu/pompom/gaifan.PNG"
     }, {
+        "name": "Siuyuk Fan",
+        "value": 6.5
+    }, {
+        "name": "Charsiew Fan",
+        "value": 6.5
+    }, {
         "name": "Charsiew Gai Fan",
         "value": 6.5
     }, {
@@ -106,6 +118,12 @@
     "priceRange": "RM10-",
     "foods": [{
         "name": "Gai Fan",
+        "value": 6.5
+    }, {
+        "name": "Siuyuk Fan",
+        "value": 6.5
+    }, {
+        "name": "Charsiew Fan",
         "value": 6.5
     }, {
         "name": "Charsiew Gai Fan",
@@ -166,14 +184,20 @@
         "name": "Gai Fan",
         "value": 6.5
     }, {
+        "name": "Siuyuk Fan",
+        "value": 8
+    }, {
+        "name": "Charsiew Fan",
+        "value": 8
+    }, {
         "name": "Charsiew Gai Fan",
-        "value": 8.5
+        "value": 9.5
     }, {
         "name": "Siuyuk Gai Fan",
-        "value": 8.5
+        "value": 9.5
     }, {
         "name": "Charsiew Siuyuk Fan",
-        "value": 8.5
+        "value": 10
     }, {
         "name": "Curry Mee Dry/Soup",
         "value": 7
@@ -198,6 +222,9 @@
     }, {
         "name": "Fried Rice",
         "value": 7.5
+    }, {
+        "name": "Pan Mee",
+        "value": 7
     }, {
         "name": "Pork Noodle",
         "value": 7
