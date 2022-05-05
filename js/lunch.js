@@ -239,9 +239,12 @@ Murnesty.Lunch = function() {
                     localStorage.setItem("orderList", JSON.stringify(cachedOrders));
                 }
             });
-            $(".user-clear-button").click(function() {
+            $(".user-clear-button").click(function(event) {
                 let order = cachedOrders.find(x => x.userName === $(this).attr("data-userName"));
                 if (order != null) {
+                    event.stopPropagation();
+                    event.stopImmediatePropagation();
+
                     order.shopName = "";
                     order.foodName = "";
                     order.foodPrice = "";
@@ -252,7 +255,7 @@ Murnesty.Lunch = function() {
                             element.children[2].innerText = "";
                             element.children[3].innerText = "";
                             element.children[4].innerText = "";
-                            element.children[4].innerText = "";
+                            element.children[5].children[0].value = "";
                             $(element).attr({
                                 "data-shopName": "",
                                 "data-foodName": "",
