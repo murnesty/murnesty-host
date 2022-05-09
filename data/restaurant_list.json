@@ -4,16 +4,16 @@
     "priceRange": "RM10-",
     "menu_pics": [{
         "name": "Pork Noodle",
-        "path": "../images/menu/s11_meikeng/pork_noodle_menu.PNG"
+        "path": "images/menu/s11_meikeng/pork_noodle_menu.PNG"
     }, {
         "name": "Chicken Chop",
-        "path": "../images/menu/s11_meikeng/chicken_chop_menu1.jpg"
+        "path": "images/menu/s11_meikeng/chicken_chop_menu1.jpg"
     }, {
         "name": "Chicken Chop",
-        "path": "../images/menu/s11_meikeng/chicken_chop_menu2.jpg"
+        "path": "images/menu/s11_meikeng/chicken_chop_menu2.jpg"
     }, {
         "name": "Chicken Chop",
-        "path": "../images/menu/s11_meikeng/chicken_chop_menu3.jpg"
+        "path": "images/menu/s11_meikeng/chicken_chop_menu3.jpg"
     }],
     "foods": [{
         "name": "Zap Fan",
@@ -39,11 +39,11 @@
     }, {
         "name": "Char Kuey Teow",
         "value": 6.5,
-        "pic": "../images/menu/s11_meikeng/char_kuey_teow.PNG"
+        "pic": "images/menu/s11_meikeng/char_kuey_teow.PNG"
     }, {
         "name": "Wantan Mee",
         "value": 6.5,
-        "pic": "../images/menu/s11_meikeng/wantan_mee.PNG"
+        "pic": "images/menu/s11_meikeng/wantan_mee.PNG"
     }, {
         "name": "Pork Soup Rice",
         "value": 7
@@ -88,7 +88,7 @@
     "foods": [{
         "name": "Gai Fan",
         "value": 6.5,
-        "pic": "../images/menu/pompom/gaifan.PNG"
+        "pic": "images/menu/pompom/gaifan.PNG"
     }, {
         "name": "Siuyuk Fan",
         "value": 6.5
@@ -107,7 +107,7 @@
     }, {
         "name": "Pork Noodle",
         "value": 0,
-        "pic": "../images/menu/pompom/zhu_yok_fan.PNG"
+        "pic": "images/menu/pompom/zhu_yok_fan.PNG"
     }, {
         "name": "Claypot Chicken Rice",
         "value": 0
@@ -137,19 +137,19 @@
     }, {
         "name": "Mee Java Goreng",
         "value": 7,
-        "pic": "../images/menu/siongpin/mee_java_goreng.PNG"
+        "pic": "images/menu/siongpin/mee_java_goreng.PNG"
     }, {
         "name": "Curry Mee",
         "value": 10,
-        "pic": "../images/menu/siongpin/curry_mee.PNG"
+        "pic": "images/menu/siongpin/curry_mee.PNG"
     }, {
         "name": "Wantan Mee",
         "value": 7,
-        "pic": "../images/menu/siongpin/wantan_mee.PNG"
+        "pic": "images/menu/siongpin/wantan_mee.PNG"
     }, {
         "name": "Pork Noodle",
         "value": 7,
-        "pic": "../images/menu/siongpin/pork_noodle.PNG"
+        "pic": "images/menu/siongpin/pork_noodle.PNG"
     }]
 }, {
     "id": "ss3_mj",
@@ -157,28 +157,28 @@
     "priceRange": "RM10-",
     "menu_pics": [{
         "name": "Char Kuey Teow",
-        "path": "../images/menu/ss3_mj/char_kuey_teow_menu.PNG"
+        "path": "images/menu/ss3_mj/char_kuey_teow_menu.PNG"
     }, {
         "name": "Chee Cheong Fun",
-        "path": "../images/menu/ss3_mj/chee_cheong_fun_menu.PNG"
+        "path": "images/menu/ss3_mj/chee_cheong_fun_menu.PNG"
     }, {
         "name": "Curry Mee",
-        "path": "../images/menu/ss3_mj/curry_mee_noodle.PNG"
+        "path": "images/menu/ss3_mj/curry_mee_noodle.PNG"
     }, {
         "name": "Gai Fan",
-        "path": "../images/menu/ss3_mj/gai_fan.PNG"
+        "path": "images/menu/ss3_mj/gai_fan.PNG"
     }, {
         "name": "Pan Mee",
-        "path": "../images/menu/ss3_mj/pan_mee_menu.PNG"
+        "path": "images/menu/ss3_mj/pan_mee_menu.PNG"
     }, {
         "name": "Pork Noodle",
-        "path": "../images/menu/ss3_mj/pork_noodle_menu.PNG"
+        "path": "images/menu/ss3_mj/pork_noodle_menu.PNG"
     }, {
         "name": "Shui Jiao Noodle",
-        "path": "../images/menu/ss3_mj/shui_jiao_noodle.jpg"
+        "path": "images/menu/ss3_mj/shui_jiao_noodle.jpg"
     }, {
         "name": "Toast",
-        "path": "../images/menu/ss3_mj/toast_menu.PNG"
+        "path": "images/menu/ss3_mj/toast_menu.PNG"
     }],
     "foods": [{
         "name": "Gai Fan",
@@ -246,10 +246,10 @@
     "priceRange": "RM10-20",
     "menu_pics": [{
         "name": "Menu 1",
-        "path": "../images/menu/boran/menu1.jpg"
+        "path": "images/menu/boran/menu1.jpg"
     }, {
         "name": "Menu 2",
-        "path": "../images/menu/boran/menu2.jpg"
+        "path": "images/menu/boran/menu2.jpg"
     }],
     "foods": [{
         "name": "S1 Classic Pork Noodle (reg)",
