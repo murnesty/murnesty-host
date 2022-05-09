@@ -20,41 +20,44 @@
     <script src="js/lunch.js"></script>
 </head>
 
-<body>
+<body class="relative">
     <div class="top-box">
         <h1>Lunch Orders</h1>
     </div>
 
     <div class="main-box">
-        <div class="card card-body">
+        <div id="shop" class="card card-body">
             <div class="d-flex w-100">
                 <h5>Restaurants :</h5>
                 <div id="shopNotification" class="notification ml-auto mb-auto bg-info text-white px-2"></div>
             </div>
+            <div class="pic-row"></div>
             <div class="table-container">
-                <table id="shopList"></table>
+                <table></table>
             </div>
         </div>
 
-        <div class="card card-body">
+        <div id="food" class="card card-body">
             <div class="d-flex w-100">
                 <h5>Menu :</h5>
                 <div id="foodNotification" class="notification ml-auto mb-auto bg-info text-white px-2"></div>
             </div>
+            <div class="pic-row"></div>
             <div class="table-container">
-                <table id="foodList"></table>
+                <table></table>
             </div>
         </div>
 
-        <div class="card card-body">
+        <div id="order" class="card card-body">
             <div class="d-flex w-100">
                 <h5>Orders :</h5>
                 <div id="clearCachedOrders" class="ml-auto btn btn-sm btn-dark" title="Clear Cached Orders">
                     <i class="fa fa-times"></i>
                 </div>
             </div>
+            <div class="pic-row"></div>
             <div class="table-container">
-                <table id="orderList"></table>
+                <table></table>
             </div>
         </div>
     </div>
@@ -73,7 +76,7 @@
         </div>
     </div>
 
-    <div></div>
+    <img id="preview"></div>
 
     <script>
         $(document).ready(function() {

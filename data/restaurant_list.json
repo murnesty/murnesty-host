@@ -85,13 +85,13 @@
         "pic": "../images/menu/pompom/gaifan.PNG"
     }, {
         "name": "Charsiew Gai Fan",
-        "value": 6.5
+        "value": 8
     }, {
         "name": "Siuyuk Gai Fan",
-        "value": 6.5
+        "value": 8
     }, {
         "name": "Charsiew Siuyuk Fan",
-        "value": 6.5
+        "value": 8
     }, {
         "name": "Pork Noodle",
         "value": 0,
@@ -109,20 +109,20 @@
         "value": 6.5
     }, {
         "name": "Charsiew Gai Fan",
-        "value": 6.5
+        "value": 8
     }, {
         "name": "Siuyuk Gai Fan",
-        "value": 6.5
+        "value": 8
     }, {
         "name": "Charsiew Siuyuk Fan",
-        "value": 6.5
+        "value": 8
     }, {
         "name": "Mee Java Goreng",
         "value": 7,
         "pic": "../images/menu/siongpin/mee_java_goreng.PNG"
     }, {
         "name": "Curry Mee",
-        "value": 0,
+        "value": 10,
         "pic": "../images/menu/siongpin/curry_mee.PNG"
     }, {
         "name": "Wantan Mee",
@@ -130,7 +130,7 @@
         "pic": "../images/menu/siongpin/wantan_mee.PNG"
     }, {
         "name": "Pork Noodle",
-        "value": 0,
+        "value": 7,
         "pic": "../images/menu/siongpin/pork_noodle.PNG"
     }]
 }, {
@@ -157,7 +157,7 @@
         "path": "../images/menu/ss3_mj/pork_noodle_menu.PNG"
     }, {
         "name": "Shui Jiao Noodle",
-        "path": "../images/menu/ss3_mj/shui_jiao_noodle.PNG"
+        "path": "../images/menu/ss3_mj/shui_jiao_noodle.jpg"
     }, {
         "name": "Toast",
         "path": "../images/menu/ss3_mj/toast_menu.PNG"

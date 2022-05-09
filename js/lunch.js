@@ -76,7 +76,7 @@ Murnesty.Lunch = function() {
 
     function _setupRestaurants(shops) {
         // Shop header
-        $("#shopList").append(`
+        $("#shop table").append(`
             <tr>
                 <th id="shopNoHeader">No</th>
                 <th id="shopNameHeader">Name</th>
@@ -86,7 +86,7 @@ Murnesty.Lunch = function() {
         // Shop content
         for (let i = 0; i < shops.length; i++) {
             let shop = shops[i];
-            $("#shopList").append(`
+            $("#shop table").append(`
                 <tr id="${shop.id}" class="shop-item">
                     <td class="number">${i + 1}</td>
                     <td>${shop.name}</th>
@@ -103,20 +103,41 @@ Murnesty.Lunch = function() {
             // Handle selected detail UI
             var shop = shops.find(x => x.id == $(this).attr("id"));
             foodList = shop.foods;
-            _setupMenuFoods(shop.foods);
+            _setupMenuFoods(shop.foods, shop.menu_pics);
 
             _setupNotification($("#shopNotification"), "Select food now");
         });
-        var table = document.getElementById("shopList");
+        var table = document.getElementById("shop table");
         $("#shopNoHeader").click(() => sortTable(table, 0));
         $("#shopNameHeader").click(() => sortTable(table, 1));
         $("#shopPriceHeader").click(() => sortTable(table, 2));
     }
 
-    function _setupMenuFoods(foods) {
+    function _setupMenuFoods(foods, menu_pics) {
+        if (menu_pics != null) {
+            for (let j = 0; j < menu_pics.length; j++) {
+                let pic = menu_pics[j];
+
+                $("#food .pic-row")
+                    .append(`
+                        <span>
+                            <img src="${pic.path}" class="menu-pic"></img>
+                        </span>
+                    `);
+            }
+            $(".menu-pic").hover(function(event) {
+                $("#preview")
+                    .attr("src", $(this).attr("src"))
+                    .show();
+            });
+            $(".menu-pic").mouseleave(function(event) {
+                $("#preview").hide();
+            });
+        }
+
         if (foods != null) {
             // Food header
-            $("#foodList")
+            $("#food table")
                 .empty()
                 .append(`
                     <tr>
@@ -129,7 +150,7 @@ Murnesty.Lunch = function() {
             for (let j = 0; j < foods.length; j++) {
                 let food = foods[j];
 
-                $("#foodList")
+                $("#food table")
                     .append(`
                         <tr class="food-item">
                             <td class="number">${j + 1}</td>
@@ -150,14 +171,14 @@ Murnesty.Lunch = function() {
             $("#foodNameHeader").click(() => sortTable(table, 1));
             $("#foodPriceHeader").click(() => sortTable(table, 2));
         } else {
-            $("#foodList").empty();
+            $("#food table").empty();
         }
     }
 
     function _setupOrders(users) {
         if (users != null) {
             // User header
-            $("#orderList")
+            $("#order table")
                 .empty()
                 .append(`
                     <tr>
@@ -229,7 +250,7 @@ Murnesty.Lunch = function() {
                         row.children()[4].innerText = foodPrice || "";
                         row.css("color", "black");
                     });
-                $("#orderList").append(row);
+                $("#order table").append(row);
             }
             // User event
             $(".user-remark-input").keyup(function(eventData) {

@@ -51,6 +51,57 @@
 }
 
 
+/* pic-row */
+
+.pic-row {
+    display: flex;
+    flex-wrap: nowrap;
+    opacity: 0.25;
+    width: 100%;
+    height: 10px;
+    margin-bottom: 1vh;
+    overflow-x: auto;
+    overflow-y: hidden;
+    gap: .25rem;
+    scroll-behavior: smooth;
+}
+
+.pic-row::-webkit-scrollbar {
+    height: 5px;
+    background-color: white;
+}
+
+.pic-row::-webkit-scrollbar-thumb {
+    background-color: orangered;
+    border-radius: .25rem;
+}
+
+.pic-row:hover {
+    opacity: 1;
+    height: 64px;
+    transition: height 150ms linear;
+}
+
+.menu-pic {
+    width: 64px;
+    height: 64px;
+    aspect-ratio: 1 1;
+    opacity: .5;
+}
+
+.menu-pic:hover {
+    opacity: 1;
+}
+
+#preview {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 9999;
+    width: 30vw;
+}
+
+
 /* Notification */
 
 .notification {
