@@ -106,6 +106,7 @@ Murnesty.Lunch = function() {
             _setupMenuFoods(shop.foods, shop.menu_pics);
 
             _setupNotification($("#shopNotification"), "Select food now");
+            $("#preview").hide();
         });
         var table = document.getElementById("shop table");
         $("#shopNoHeader").click(() => sortTable(table, 0));
@@ -128,6 +129,8 @@ Murnesty.Lunch = function() {
             $(".menu-pic").hover(function(event) {
                 $("#preview")
                     .attr("src", $(this).attr("src"))
+                    .addClass("big")
+                    .removeClass("small")
                     .show();
             });
             $(".menu-pic").mouseleave(function(event) {
@@ -165,6 +168,16 @@ Murnesty.Lunch = function() {
                 $(this).addClass("active");
 
                 _setupNotification($("#foodNotification"), "Select user now");
+
+                let foodName = $(this).children()[1].innerText;
+                let food = foodList.find(x => x.name === foodName);
+                if (food != null && food.pic != null) {
+                    $("#preview")
+                        .attr("src", food.pic)
+                        .removeClass("big")
+                        .addClass("small")
+                        .show();
+                }
             });
             var table = document.getElementById("foodList");
             $("#foodNoHeader").click(() => sortTable(table, 0));
@@ -330,9 +343,9 @@ Murnesty.Lunch = function() {
                     order.foodName = foodName;
                     order.foodPrice = foodPrice;
                 }
-                // var expireDate = new Date();
-                // expireDate.setTime(expireDate.getTime() + (1 * 24 * 60 * 60 * 1000));
                 localStorage.setItem("orderList", JSON.stringify(cachedOrders));
+
+
             });
             var table = document.getElementById("orderList");
             $("#userNoHeader").click(() => sortTable(table, 0));
