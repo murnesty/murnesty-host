@@ -313,6 +313,29 @@
         "value": 13.9
     }]
 }, {
+    "id": "botak",
+    "name": "Botak Nasi Lemak",
+    "priceRange": "RM10-20",
+    "foods": [{
+        "name": "Mee Siam + Mee",
+        "value": 4
+    },{
+        "name": "Mee Siam",
+        "value": 4
+    },{
+        "name": "Nasi Lemak Small",
+        "value": 2.5
+    },{
+        "name": "Nasi Lemak Telur",
+        "value": 5
+    },{
+        "name": "Nasi Lemak Ayam Goreng",
+        "value": 10
+    },{
+        "name": "Mee Siam & Mee Lemak Ayam Goreng",
+        "value": 10.2
+    }]
+}, {
     "id": "tang_pin",
     "name": "Tang Pin",
     "priceRange": "RM10-20"

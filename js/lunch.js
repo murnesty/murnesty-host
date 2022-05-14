@@ -108,7 +108,7 @@ Murnesty.Lunch = function() {
             _setupNotification($("#shopNotification"), "Select food now");
             $("#preview").hide();
         });
-        var table = document.getElementById("shop table");
+        var table = document.getElementById("shop").getElementsByTagName("table")[0];
         $("#shopNoHeader").click(() => sortTable(table, 0));
         $("#shopNameHeader").click(() => sortTable(table, 1));
         $("#shopPriceHeader").click(() => sortTable(table, 2));
@@ -179,7 +179,7 @@ Murnesty.Lunch = function() {
                         .show();
                 }
             });
-            var table = document.getElementById("foodList");
+            var table = document.getElementById("food").getElementsByTagName("table")[0];
             $("#foodNoHeader").click(() => sortTable(table, 0));
             $("#foodNameHeader").click(() => sortTable(table, 1));
             $("#foodPriceHeader").click(() => sortTable(table, 2));
@@ -347,7 +347,7 @@ Murnesty.Lunch = function() {
 
 
             });
-            var table = document.getElementById("orderList");
+            var table = document.getElementById("order").getElementsByTagName("table")[0];
             $("#userNoHeader").click(() => sortTable(table, 0));
             $("#userNameHeader").click(() => sortTable(table, 1));
             $("#userShopHeader").click(() => sortTable(table, 2));
